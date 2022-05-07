@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace erp_ecommerce.Models
+namespace erp_ecommerce.Entities
 {
     public partial class ERPContext : DbContext
     {

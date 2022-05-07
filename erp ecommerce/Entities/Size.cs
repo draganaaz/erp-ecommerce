@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace erp_ecommerce.Models
+namespace erp_ecommerce.Entities
 {
     public partial class Size
     {
