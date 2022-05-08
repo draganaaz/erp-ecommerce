@@ -7,10 +7,16 @@ namespace erp_ecommerce.Data
     {
         public IEnumerable<Shipping> GetAllShippings();
 
-        public Product GetShippingById(int id);
+        public Shipping GetShippingById(int id);
 
         public void AddShipping(Shipping shippingDto);
 
+        public void UpdateShipping(Shipping shiping);
+
+        public void DeleteShipping(Shipping shipping);
+
         public bool SaveChanges();
+
+        public bool Exists(int id);
     }
 }

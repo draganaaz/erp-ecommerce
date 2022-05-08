@@ -11,6 +11,12 @@ namespace erp_ecommerce.Data
 
         public void AddColor(Color colorDto);
 
+        public void UpdateColor(Color color);
+
+        public void DeleteColor(Color color);
+
         public bool SaveChanges();
+
+        public bool Exists(int id);
     }
 }

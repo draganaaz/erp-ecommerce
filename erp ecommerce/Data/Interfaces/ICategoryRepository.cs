@@ -11,6 +11,12 @@ namespace erp_ecommerce.Data
 
         public void AddCategory(Category categoryDto);
 
+        public void UpdateCategory(Category category);
+
+        public void DeleteCategory(Category category);
+
         public bool SaveChanges();
+
+        public bool Exists(int id);
     }
 }

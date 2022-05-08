@@ -1,6 +1,7 @@
 ﻿using erp_ecommerce.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace erp_ecommerce.Data
 {
@@ -12,24 +13,41 @@ namespace erp_ecommerce.Data
         {
             this.context = context;
         }
+
         public void AddShipping(Shipping shippingDto)
         {
-            throw new NotImplementedException();
+            Shipping shipping = new Shipping();
+            context.Add(shipping);
         }
 
         public IEnumerable<Shipping> GetAllShippings()
         {
+            return context.Shipping.ToList();
+        }
+
+        public Shipping GetShippingById(int id)
+        {
+            return context.Shipping.Where(x => x.ShippingId == id).FirstOrDefault();
+        }
+
+        public void UpdateShipping(Shipping shipping)
+        {
             throw new NotImplementedException();
         }
 
-        public Product GetShippingById(int id)
+        public void DeleteShipping(Shipping shipping)
         {
-            throw new NotImplementedException();
+            context.Remove(shipping);
         }
 
         public bool SaveChanges()
         {
-            throw new NotImplementedException();
+            return context.SaveChanges() > 0;
+        }
+
+        public bool Exists(int id)
+        {
+            return context.Shipping.Any(x => x.ShippingId == id);
         }
     }
 }

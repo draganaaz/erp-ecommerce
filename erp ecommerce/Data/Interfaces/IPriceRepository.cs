@@ -11,6 +11,10 @@ namespace erp_ecommerce.Data
 
         public void AddPrice(Price priceDto);
 
+        public void UpdatePrice(Price price);
+
+        public void DeletePrice(Price price);
+
         public bool SaveChanges();
     }
 }

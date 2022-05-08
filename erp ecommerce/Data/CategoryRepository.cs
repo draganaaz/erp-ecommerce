@@ -1,6 +1,7 @@
 ﻿using erp_ecommerce.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace erp_ecommerce.Data
 {
@@ -15,22 +16,38 @@ namespace erp_ecommerce.Data
 
         public void AddCategory(Category categoryDto)
         {
-            throw new NotImplementedException();
+            Category category = new Category();
+            context.Add(category);
         }
 
         public IEnumerable<Category> GetAllCategories()
         {
-            throw new NotImplementedException();
+            return context.Category.ToList();   
         }
 
         public Category GetCategoryById(int id)
         {
+            return context.Category.Where(x => x.CategoryId == id).FirstOrDefault();
+        }
+
+        public void UpdateCategory(Category category)
+        {
             throw new NotImplementedException();
+        }
+
+        public void DeleteCategory(Category category)
+        {
+            context.Remove(category);
         }
 
         public bool SaveChanges()
         {
-            throw new NotImplementedException();
+            return context.SaveChanges() > 0;
+        }
+
+        public bool Exists(int id)
+        {
+            return context.Category.Any(x => x.CategoryId == id);
         }
     }
 }

@@ -11,6 +11,12 @@ namespace erp_ecommerce.Data
 
         public void AddProduct(Product productDto);
 
+        public void UpdateProduct(Product product);
+
+        public void DeleteProduct(Product product);
+
         public bool SaveChanges();
+
+        public bool Exists(int id);
     }
 }

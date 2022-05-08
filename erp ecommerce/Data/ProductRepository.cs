@@ -1,6 +1,7 @@
 ﻿using erp_ecommerce.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace erp_ecommerce.Data
 {
@@ -12,24 +13,41 @@ namespace erp_ecommerce.Data
         {
             this.context = context;
         }
+
         public void AddProduct(Product productDto)
         {
-            throw new NotImplementedException();
+            Product product = new Product();
+            context.Add(product);
         }
 
         public IEnumerable<Product> GetAllProducts()
         {
-            throw new NotImplementedException();
+            return context.Product.ToList();
         }
 
         public Product GetProductById(int id)
         {
+            return context.Product.Where(x => x.ProductId == id).FirstOrDefault();
+        }
+
+        public void UpdateProduct(Product product)
+        {
             throw new NotImplementedException();
+        }
+
+        public void DeleteProduct(Product product)
+        {
+            context.Remove(product);
         }
 
         public bool SaveChanges()
         {
-            throw new NotImplementedException();
+            return context.SaveChanges() > 0;
+        }
+
+        public bool Exists(int id)
+        {
+            return context.Product.Any(x => x.ProductId == id);
         }
     }
 }

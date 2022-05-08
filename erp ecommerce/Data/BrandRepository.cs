@@ -1,6 +1,7 @@
 ﻿using erp_ecommerce.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace erp_ecommerce.Data
 {
@@ -15,22 +16,38 @@ namespace erp_ecommerce.Data
 
         public void AddBrand(Brand brandDto)
         {
-            throw new NotImplementedException();
+            Brand brand = new Brand();
+            context.Add(brand);
         }
 
         public IEnumerable<Brand> GetAllBrands()
         {
-            throw new NotImplementedException();
+            return context.Brand.ToList();
         }
 
         public Brand GetBrandById(int id)
         {
+            return context.Brand.Where(x => x.BrandId == id).FirstOrDefault();
+        }
+
+        public void UpdateBrand(Brand brand)
+        {
             throw new NotImplementedException();
+        }
+
+        public void DeleteBrand(Brand brand)
+        {
+            context.Remove(brand);
         }
 
         public bool SaveChanges()
         {
-            throw new NotImplementedException();
+            return context.SaveChanges() > 0;
+        }
+
+        public bool Exists(int id)
+        {
+            return context.Brand.Any(x => x.BrandId == id);
         }
     }
 }

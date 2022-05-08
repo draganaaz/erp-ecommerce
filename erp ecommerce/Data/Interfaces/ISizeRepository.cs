@@ -11,6 +11,12 @@ namespace erp_ecommerce.Data
 
         public void AddSize(Size sizeDto);
 
+        public void UpdateSize(Size size);
+
+        public void DeleteSize(Size size);
+
         public bool SaveChanges();
+
+        public bool Exists(int id);
     }
 }

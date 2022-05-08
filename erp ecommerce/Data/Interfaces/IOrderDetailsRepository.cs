@@ -11,6 +11,12 @@ namespace erp_ecommerce.Data
 
         public void AddOrderDetails(OrderDetails orderDetails);
 
+        public void UpdateOrderDetails(OrderDetails orderDetails);
+
+        public void DeleteOrderDetails(OrderDetails orderDetails);
+
         public bool SaveChanges();
+
+        public bool Exists(int id);
     }
 }
