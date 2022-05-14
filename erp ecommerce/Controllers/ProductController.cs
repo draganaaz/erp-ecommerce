@@ -49,8 +49,8 @@ namespace erp_ecommerce.Controllers
             return Ok(product);
         }
 
-        [HttpPost]
-        public IActionResult AddProduct(Product product)
+        // Both method and parameter can be different type through runtime 
+        private dynamic ValidateProduct(dynamic product)
         {
             if (!brandRepository.Exists((int)product.BrandId))
             {
@@ -62,11 +62,22 @@ namespace erp_ecommerce.Controllers
                 return NotFound("There is no Category with given CategoryId");
             }
 
-            // TODO: sizes and colors
-            //if (!brandRepository.Exists((int)product.BrandId))
-            //{
-            //    return NotFound("There is no Brand with given BrandId");
-            //}
+            if (!colorRepository.Exists((int)product.ColorId))
+            {
+                return NotFound("There is no Color with given ColorId");
+            }
+
+            if (!sizeRepository.Exists((int)product.SizeId))
+            {
+                return NotFound("There is no Size with given SizeId");
+            }
+            return null;
+        }
+
+        [HttpPost]
+        public IActionResult AddProduct(Product product)
+        {
+            ValidateProduct(product);
 
             productRepository.AddProduct(product);
 
@@ -91,6 +102,8 @@ namespace erp_ecommerce.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult UpdateProduct(ProductDto productDto)
         {
+            ValidateProduct(productDto);
+
             // Retrieving Product entity from the database based on the passed productId
             Product product = productRepository.GetProductById(productDto.ProductId);
 
