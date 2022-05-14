@@ -1,4 +1,5 @@
 ﻿using erp_ecommerce.Entities;
+using erp_ecommerce.Models;
 using System.Collections.Generic;
 
 namespace erp_ecommerce.Data
@@ -9,9 +10,9 @@ namespace erp_ecommerce.Data
 
         public Category GetCategoryById(int id);
 
-        public void AddCategory(Category categoryDto);
+        public void AddCategory(Category category);
 
-        public void UpdateCategory(Category category);
+        public void UpdateCategory(Category category, CategoryDto categoryDto);
 
         public void DeleteCategory(Category category);
 

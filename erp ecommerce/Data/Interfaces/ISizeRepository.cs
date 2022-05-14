@@ -1,4 +1,5 @@
 ﻿using erp_ecommerce.Entities;
+using erp_ecommerce.Models;
 using System.Collections.Generic;
 
 namespace erp_ecommerce.Data
@@ -11,7 +12,7 @@ namespace erp_ecommerce.Data
 
         public void AddSize(Size sizeDto);
 
-        public void UpdateSize(Size size);
+        public void UpdateSize(Size size, SizeDto sizeDto);
 
         public void DeleteSize(Size size);
 

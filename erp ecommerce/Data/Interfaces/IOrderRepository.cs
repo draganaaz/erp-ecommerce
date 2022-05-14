@@ -1,4 +1,5 @@
 ﻿using erp_ecommerce.Entities;
+using erp_ecommerce.Models;
 using System.Collections.Generic;
 
 namespace erp_ecommerce.Data
@@ -11,7 +12,7 @@ namespace erp_ecommerce.Data
 
         public void AddOrder(Orders orderDto);
 
-        public void UpdateOrder(Orders order);
+        public void UpdateOrder(Orders order, OrderDto orderDto);
 
         public void DeleteOrder(Orders order);
 

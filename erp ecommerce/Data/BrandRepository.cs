@@ -1,4 +1,5 @@
 ﻿using erp_ecommerce.Entities;
+using erp_ecommerce.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +31,9 @@ namespace erp_ecommerce.Data
             return context.Brand.Where(x => x.BrandId == id).FirstOrDefault();
         }
 
-        public void UpdateBrand(Brand brand)
+        public void UpdateBrand(Brand brand, BrandDto brandDto)
         {
-            throw new NotImplementedException();
+            brand.Brand1 = brandDto.Brand;
         }
 
         public void DeleteBrand(Brand brand)

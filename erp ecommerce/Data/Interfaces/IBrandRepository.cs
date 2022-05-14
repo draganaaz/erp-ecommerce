@@ -1,4 +1,5 @@
 ﻿using erp_ecommerce.Entities;
+using erp_ecommerce.Models;
 using System.Collections.Generic;
 
 namespace erp_ecommerce.Data
@@ -9,9 +10,9 @@ namespace erp_ecommerce.Data
 
         public Brand GetBrandById(int id);
 
-        public void AddBrand(Brand brandDto);
+        public void AddBrand(Brand brand);
 
-        public void UpdateBrand(Brand brand);
+        public void UpdateBrand(Brand brand, BrandDto brandDto);
 
         public void DeleteBrand(Brand brand);
 

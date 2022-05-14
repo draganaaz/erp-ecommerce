@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace erp_ecommerce.Entities
+﻿namespace erp_ecommerce.Models
 {
-    public partial class Product
+    public class ProductDto
     {
         public int ProductId { get; set; }
         public string Name { get; set; }
@@ -16,10 +13,5 @@ namespace erp_ecommerce.Entities
         public int? CategoryId { get; set; }
         public int? BrandId { get; set; }
         public string ProductType { get; set; }
-
-        public virtual Brand Brand { get; set; }
-        public virtual Category Category { get; set; }
-        public virtual Color Color { get; set; }
-        public virtual Size Size { get; set; }
     }
 }

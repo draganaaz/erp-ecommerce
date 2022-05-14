@@ -1,4 +1,5 @@
 ﻿using erp_ecommerce.Entities;
+using erp_ecommerce.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +31,9 @@ namespace erp_ecommerce.Data
             return context.Category.Where(x => x.CategoryId == id).FirstOrDefault();
         }
 
-        public void UpdateCategory(Category category)
+        public void UpdateCategory(Category category, CategoryDto categoryDto)
         {
-            throw new NotImplementedException();
+            category.Category1 = categoryDto.Category;
         }
 
         public void DeleteCategory(Category category)

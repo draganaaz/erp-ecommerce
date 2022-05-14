@@ -1,4 +1,5 @@
 ﻿using erp_ecommerce.Entities;
+using erp_ecommerce.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +31,9 @@ namespace erp_ecommerce.Data
             return context.Size.Where(x => x.SizeId == id).FirstOrDefault();
         }
 
-        public void UpdateSize(Size size)
+        public void UpdateSize(Size size, SizeDto sizeDto)
         {
-            throw new NotImplementedException();
+            size.Size1 = sizeDto.Size;
         }
 
         public void DeleteSize(Size size)

@@ -26,13 +26,10 @@ namespace erp_ecommerce
 
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<IPriceRepository, PriceRepository>();
             services.AddScoped<IColorRepository, ColorRepository>();
             services.AddScoped<ISizeRepository, SizeRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
-            services.AddScoped<IOrderDetailsRepository, OrderDetailsRepository>();
-            services.AddScoped<IShippingRepository, ShippingRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,12 +7,12 @@ namespace erp_ecommerce.Entities
     {
         public Color()
         {
-            ProductColors = new HashSet<ProductColors>();
+            Product = new HashSet<Product>();
         }
 
-        public decimal ColorId { get; set; }
+        public int ColorId { get; set; }
         public string Color1 { get; set; }
 
-        public virtual ICollection<ProductColors> ProductColors { get; set; }
+        public virtual ICollection<Product> Product { get; set; }
     }
 }

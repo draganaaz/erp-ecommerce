@@ -1,5 +1,5 @@
 ﻿using erp_ecommerce.Entities;
-using System;
+using erp_ecommerce.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,9 +30,9 @@ namespace erp_ecommerce.Data
             return context.Color.Where(x => x.ColorId == id).FirstOrDefault();
         }
 
-        public void UpdateColor(Color color)
+        public void UpdateColor(Color color, ColorDto colorDto)
         {
-            throw new NotImplementedException();
+            color.Color1 = colorDto.Color;
         }
 
         public void DeleteColor(Color color)

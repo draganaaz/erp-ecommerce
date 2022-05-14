@@ -1,4 +1,5 @@
 ﻿using erp_ecommerce.Entities;
+using erp_ecommerce.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,20 @@ namespace erp_ecommerce.Data
             this.context = context;
         }
 
-        public void AddOrder(Orders orderDto)
+        public void AddOrder(Orders order)
         {
-            Orders order = new Orders();
-            context.Add(order);
+            Orders orderToSave = new Orders
+            {
+                Name = order.Name,
+                Surname = order.Surname,
+                Address = order.Address,
+                City = order.City,
+                Country = order.Country,
+                DateCreated = DateTime.Now,
+                IsPaymentDone = order.IsPaymentDone,
+                TotalPrice = order.TotalPrice
+            };
+            context.Add(orderToSave);
         }
 
         public IEnumerable<Orders> GetAllOrders()
@@ -30,9 +41,13 @@ namespace erp_ecommerce.Data
             return context.Orders.Where(x => x.OrderId == id).FirstOrDefault();
         }
 
-        public void UpdateOrder(Orders order)
+        public void UpdateOrder(Orders order, OrderDto orderDto)
         {
-            throw new NotImplementedException();
+            order.Name = orderDto.Name;
+            order.Surname = orderDto.Surname;
+            order.Address = orderDto.Address;
+            order.City = orderDto.City;
+            order.Country = orderDto.Country;
         }
 
         public void DeleteOrder(Orders order)

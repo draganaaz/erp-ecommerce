@@ -1,4 +1,5 @@
 ﻿using erp_ecommerce.Entities;
+using erp_ecommerce.Models;
 using System.Collections.Generic;
 
 namespace erp_ecommerce.Data
@@ -11,7 +12,7 @@ namespace erp_ecommerce.Data
 
         public void AddColor(Color colorDto);
 
-        public void UpdateColor(Color color);
+        public void UpdateColor(Color color, ColorDto colorDto);
 
         public void DeleteColor(Color color);
 

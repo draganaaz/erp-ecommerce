@@ -10,7 +10,7 @@ namespace erp_ecommerce.Entities
             Product = new HashSet<Product>();
         }
 
-        public decimal BrandId { get; set; }
+        public int BrandId { get; set; }
         public string Brand1 { get; set; }
 
         public virtual ICollection<Product> Product { get; set; }
