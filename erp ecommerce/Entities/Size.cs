@@ -7,12 +7,12 @@ namespace erp_ecommerce.Entities
     {
         public Size()
         {
-            Product = new HashSet<Product>();
+            ProductSizes = new HashSet<ProductSizes>();
         }
 
         public int SizeId { get; set; }
         public string Size1 { get; set; }
 
-        public virtual ICollection<Product> Product { get; set; }
+        public virtual ICollection<ProductSizes> ProductSizes { get; set; }
     }
 }

@@ -43,13 +43,13 @@ namespace erp_ecommerce.Data
             }
 
             // Filters
-            // TODO: add prices filtering
+            // TODO: add prices filtering and fix colors and sizes n:n
             if (categoryID != null) return context.Product.Where(x => x.CategoryId == categoryID).ToList();
             if (brandID != null) return context.Product.Where(x => x.BrandId == brandID).ToList();
             if (!String.IsNullOrEmpty(productType)) return context.Product.Where(x => x.ProductType.Equals(productType))
                     .ToList();
-            if (colorID != null) return context.Product.Where(x => x.ColorId == colorID).ToList();
-            if (sizeID != null) return context.Product.Where(x => x.SizeId == sizeID).ToList();
+            //if (colorID != null) return context.Product.Where(x => x.ColorId == colorID).ToList();
+            //if (sizeID != null) return context.Product.Where(x => x.SizeId == sizeID).ToList();
 
             return context.Product.ToList();
         }
@@ -65,8 +65,8 @@ namespace erp_ecommerce.Data
             product.Description = productDto.Description;
             product.BrandId = productDto.BrandId;
             product.CategoryId = productDto.CategoryId;
-            product.ColorId = productDto.ColorId;
-            product.SizeId = productDto.SizeId;
+            //product.ColorId = productDto.ColorId;
+            //product.SizeId = productDto.SizeId;
             product.Price = productDto.Price;
             product.Discount = productDto.Discount;
             product.IsAvailable = productDto.IsAvailable;

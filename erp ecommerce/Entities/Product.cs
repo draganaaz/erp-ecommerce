@@ -5,12 +5,18 @@ namespace erp_ecommerce.Entities
 {
     public partial class Product
     {
+        public Product()
+        {
+            ProductColors = new HashSet<ProductColors>();
+            ProductSizes = new HashSet<ProductSizes>();
+        }
+
         public int ProductId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool? IsAvailable { get; set; }
-        public int? SizeId { get; set; }
-        public int? ColorId { get; set; }
+        public int? ProductSizeId { get; set; }
+        public int? ProductColorId { get; set; }
         public decimal? Price { get; set; }
         public decimal? Discount { get; set; }
         public int? CategoryId { get; set; }
@@ -19,7 +25,7 @@ namespace erp_ecommerce.Entities
 
         public virtual Brand Brand { get; set; }
         public virtual Category Category { get; set; }
-        public virtual Color Color { get; set; }
-        public virtual Size Size { get; set; }
+        public virtual ICollection<ProductColors> ProductColors { get; set; }
+        public virtual ICollection<ProductSizes> ProductSizes { get; set; }
     }
 }

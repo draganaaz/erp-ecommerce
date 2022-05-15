@@ -20,6 +20,8 @@ namespace erp_ecommerce.Entities
         public virtual DbSet<Color> Color { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<ProductColors> ProductColors { get; set; }
+        public virtual DbSet<ProductSizes> ProductSizes { get; set; }
         public virtual DbSet<Size> Size { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
@@ -91,6 +93,8 @@ namespace erp_ecommerce.Entities
                     .IsRequired()
                     .HasMaxLength(200);
 
+                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+
                 entity.Property(e => e.DateCreated).HasColumnType("datetime");
 
                 entity.Property(e => e.IsPaymentDone).HasColumnName("isPaymentDone");
@@ -116,8 +120,6 @@ namespace erp_ecommerce.Entities
 
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
-                entity.Property(e => e.ColorId).HasColumnName("ColorID");
-
                 entity.Property(e => e.Description)
                     .IsRequired()
                     .HasMaxLength(300)
@@ -132,9 +134,11 @@ namespace erp_ecommerce.Entities
 
                 entity.Property(e => e.Price).HasColumnType("numeric(10, 2)");
 
-                entity.Property(e => e.ProductType).HasMaxLength(10);
+                entity.Property(e => e.ProductColorId).HasColumnName("ProductColorID");
 
-                entity.Property(e => e.SizeId).HasColumnName("SizeID");
+                entity.Property(e => e.ProductSizeId).HasColumnName("ProductSizeID");
+
+                entity.Property(e => e.ProductType).HasMaxLength(10);
 
                 entity.HasOne(d => d.Brand)
                     .WithMany(p => p.Product)
@@ -147,18 +151,52 @@ namespace erp_ecommerce.Entities
                     .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Product_Category");
+            });
+
+            modelBuilder.Entity<ProductColors>(entity =>
+            {
+                entity.HasKey(e => e.ProductColorId);
+
+                entity.ToTable("ProductColors", "shop");
+
+                entity.Property(e => e.ProductColorId).HasColumnName("ProductColorID");
+
+                entity.Property(e => e.ColorId).HasColumnName("ColorID");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
                 entity.HasOne(d => d.Color)
-                    .WithMany(p => p.Product)
+                    .WithMany(p => p.ProductColors)
                     .HasForeignKey(d => d.ColorId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_Product_Color");
+                    .HasConstraintName("FK_ProductColors_Color");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductColors)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_ProductColors_Product");
+            });
+
+            modelBuilder.Entity<ProductSizes>(entity =>
+            {
+                entity.HasKey(e => e.ProductSizeId);
+
+                entity.ToTable("ProductSizes", "shop");
+
+                entity.Property(e => e.ProductSizeId).HasColumnName("ProductSizeID");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.Property(e => e.SizeId).HasColumnName("SizeID");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductSizes)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK_ProductSizes_Product");
 
                 entity.HasOne(d => d.Size)
-                    .WithMany(p => p.Product)
+                    .WithMany(p => p.ProductSizes)
                     .HasForeignKey(d => d.SizeId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_Product_Size");
+                    .HasConstraintName("FK_ProductSizes_Size");
             });
 
             modelBuilder.Entity<Size>(entity =>
