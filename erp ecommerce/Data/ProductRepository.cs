@@ -1,5 +1,6 @@
 ﻿using erp_ecommerce.Entities;
 using erp_ecommerce.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +23,20 @@ namespace erp_ecommerce.Data
         }
 
 #nullable enable
-        public IEnumerable<Product> GetAllProducts(string query = "", int categoryID = 0, int brandID = 0,
-            string productType = "", int colorID = 0, int sizeID = 0, int minPrice = 0, int maxPrice = 0, 
-            string sortOrder = "")
+        public IEnumerable<Product> GetAllProducts(string? query, int? categoryID, int? brandID,
+            string? productType, int? colorID, int sizeID, int? minPrice, int? maxPrice, 
+            string? sortOrder, int? page)
         {
+            // TODO: make this work (pagination, sizes and colors)
+            //var pageNumber = page ?? 1;
+            //var pageSize = 10;
+
+            // Including product sizes and colors
+            //var product = context.Product
+            //    .Include(x => x.ProductColors).ThenInclude(color => color.Color);
+            //.Include(x => x.ProductSizes).ThenInclude(size => size.Size).ToList();
+
+
             // Search bar
             if (!String.IsNullOrEmpty(query))
                 return context.Product.Where(x => x.Name.Contains(query) || x.Description.Contains(query));
@@ -43,13 +54,14 @@ namespace erp_ecommerce.Data
             }
 
             // Filters
-            // TODO: add prices filtering and fix colors and sizes n:n
             if (categoryID != null) return context.Product.Where(x => x.CategoryId == categoryID).ToList();
             if (brandID != null) return context.Product.Where(x => x.BrandId == brandID).ToList();
             if (!String.IsNullOrEmpty(productType)) return context.Product.Where(x => x.ProductType.Equals(productType))
                     .ToList();
-            //if (colorID != null) return context.Product.Where(x => x.ColorId == colorID).ToList();
-            //if (sizeID != null) return context.Product.Where(x => x.SizeId == sizeID).ToList();
+
+            // TODO: add prices filtering and fix colors and sizes
+            //if (colorID != null) return product.Where(x => x.ColorId == colorID).ToList();
+            //if (sizeID != null) return productt.Where(x => x.SizeId == sizeID).ToList();
 
             return context.Product.ToList();
         }

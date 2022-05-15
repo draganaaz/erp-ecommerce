@@ -69,7 +69,7 @@ namespace erp_ecommerce.Entities
                 entity.Property(e => e.Color1)
                     .IsRequired()
                     .HasColumnName("Color")
-                    .HasMaxLength(5);
+                    .HasMaxLength(20);
             });
 
             modelBuilder.Entity<Orders>(entity =>
@@ -92,8 +92,6 @@ namespace erp_ecommerce.Entities
                 entity.Property(e => e.Country)
                     .IsRequired()
                     .HasMaxLength(200);
-
-                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
 
                 entity.Property(e => e.DateCreated).HasColumnType("datetime");
 
@@ -125,7 +123,7 @@ namespace erp_ecommerce.Entities
                     .HasMaxLength(300)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Discount).HasColumnType("numeric(3, 2)");
+                entity.Property(e => e.Discount).HasColumnType("int");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -155,7 +153,7 @@ namespace erp_ecommerce.Entities
 
             modelBuilder.Entity<ProductColors>(entity =>
             {
-                entity.HasKey(e => e.ProductColorId);
+                entity.HasKey(e => new { e.ColorId, e.ProductId });
 
                 entity.ToTable("ProductColors", "shop");
 
@@ -178,7 +176,7 @@ namespace erp_ecommerce.Entities
 
             modelBuilder.Entity<ProductSizes>(entity =>
             {
-                entity.HasKey(e => e.ProductSizeId);
+                entity.HasKey(e => new { e.SizeId, e.ProductId });
 
                 entity.ToTable("ProductSizes", "shop");
 

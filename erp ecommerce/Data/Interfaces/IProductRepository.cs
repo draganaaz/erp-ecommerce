@@ -7,9 +7,9 @@ namespace erp_ecommerce.Data
     public interface IProductRepository
     {
 #nullable enable
-        public IEnumerable<Product> GetAllProducts(string query = "", int categoryID = 0, int brandID = 0,
-            string productType = "", int colorID = 0, int sizeID = 0, int minPrice = 0, int maxPrice = 0,
-            string sortOrder = "");
+        public IEnumerable<Product> GetAllProducts(string? query, int? categoryID, int? brandID,
+            string? productType, int? colorID, int sizeID, int? minPrice, int? maxPrice,
+            string? sortOrder, int? page);
 
         public Product GetProductById(int id);
 

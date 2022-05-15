@@ -14,8 +14,6 @@ namespace erp_ecommerce.Controllers
         private IProductRepository productRepository { get; }
         private IBrandRepository brandRepository { get; }
         private ICategoryRepository categoryRepository { get; }
-        private ISizeRepository sizeRepository { get; }
-        private IColorRepository colorRepository { get; }
 
         public ProductController(IProductRepository productRepository, IBrandRepository brandRepository, ICategoryRepository categoryRepository)
         {
@@ -27,13 +25,13 @@ namespace erp_ecommerce.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
 #nullable enable
-        public IActionResult GetAllProducts(string query = "", int categoryID = 0, int brandID = 0,
-            string productType = "", int colorID = 0, int sizeID = 0, int minPrice = 0, int maxPrice = 0,
-            string sortOrder = "")
+        public IActionResult GetAllProducts(string? query, int? categoryID, int? brandID,
+            string? productType, int? colorID, int sizeID, int? minPrice, int? maxPrice,
+            string? sortOrder, int? page)
         {
             // TODO: Validation (selected size, color)
             return Ok(productRepository.GetAllProducts(query, categoryID, brandID, productType,
-                colorID, sizeID, minPrice, maxPrice, sortOrder));
+                colorID, sizeID, minPrice, maxPrice, sortOrder, page));
         }
 
         [HttpGet("{productId}")]
@@ -62,15 +60,6 @@ namespace erp_ecommerce.Controllers
                 return NotFound("There is no Category with given CategoryId");
             }
 
-            if (!colorRepository.Exists((int)product.ColorId))
-            {
-                return NotFound("There is no Color with given ColorId");
-            }
-
-            if (!sizeRepository.Exists((int)product.SizeId))
-            {
-                return NotFound("There is no Size with given SizeId");
-            }
             return null;
         }
 
