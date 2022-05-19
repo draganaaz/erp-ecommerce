@@ -8,7 +8,7 @@ namespace erp_ecommerce.Data
     {
 #nullable enable
         public IEnumerable<Product> GetAllProducts(string? query, int? categoryID, int? brandID,
-            string? productType, int? colorID, int sizeID, int? minPrice, int? maxPrice,
+            string? productType, int? colorID, int? sizeID, int? minPrice, int? maxPrice,
             string? sortOrder, int? page);
 
         public Product GetProductById(int id);

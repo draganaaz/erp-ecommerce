@@ -24,46 +24,68 @@ namespace erp_ecommerce.Data
 
 #nullable enable
         public IEnumerable<Product> GetAllProducts(string? query, int? categoryID, int? brandID,
-            string? productType, int? colorID, int sizeID, int? minPrice, int? maxPrice, 
+            string? productType, int? colorID, int? sizeID, int? minPrice, int? maxPrice, 
             string? sortOrder, int? page)
         {
-            // TODO: make this work (pagination, sizes and colors)
             //var pageNumber = page ?? 1;
             //var pageSize = 10;
 
             // Including product sizes and colors
-            //var product = context.Product
-            //    .Include(x => x.ProductColors).ThenInclude(color => color.Color);
-            //.Include(x => x.ProductSizes).ThenInclude(size => size.Size).ToList();
+            var product = context.Product
+                .Include(x => x.ProductColors).ThenInclude(color => color.Color)
+                .Include(x => x.ProductSizes).ThenInclude(size => size.Size).ToList();
 
 
             // Search bar
             if (!String.IsNullOrEmpty(query))
-                return context.Product.Where(x => x.Name.Contains(query) || x.Description.Contains(query));
+                return product.Where(x => x.Name.Contains(query) || x.Description.Contains(query));
 
             // Sorting
             if (!String.IsNullOrEmpty(sortOrder))
             {
                 return sortOrder switch
                 {
-                    "name_desc" => context.Product.OrderByDescending(x => x.Name),
-                    "price" => context.Product.OrderBy(x => x.Price),
-                    "price_desc" => context.Product.OrderByDescending(x => x.Price),
-                    _ => context.Product.OrderBy(x => x.Name),
+                    "name_desc" => product.OrderByDescending(x => x.Name),
+                    "price" => product.OrderBy(x => x.Price),
+                    "price_desc" => product.OrderByDescending(x => x.Price),
+                    _ => product.OrderBy(x => x.Name),
                 };
             }
 
-            // Filters
-            if (categoryID != null) return context.Product.Where(x => x.CategoryId == categoryID).ToList();
-            if (brandID != null) return context.Product.Where(x => x.BrandId == brandID).ToList();
-            if (!String.IsNullOrEmpty(productType)) return context.Product.Where(x => x.ProductType.Equals(productType))
-                    .ToList();
 
-            // TODO: add prices filtering and fix colors and sizes
-            //if (colorID != null) return product.Where(x => x.ColorId == colorID).ToList();
-            //if (sizeID != null) return productt.Where(x => x.SizeId == sizeID).ToList();
+            #region Filters
+            if (categoryID != null)
+            {
+                return product.Where(x => x.CategoryId == categoryID).ToList();
+            }
 
-            return context.Product.ToList();
+            if (brandID != null)
+            {
+                return product.Where(x => x.BrandId == brandID).ToList();
+            }
+
+            if (!String.IsNullOrEmpty(productType))
+            {
+                return product.Where(x => x.ProductType.Equals(productType)).ToList();
+            }
+
+            if (minPrice != null && maxPrice != null)
+            {
+                return product.Where(x => (int?)x.Price > minPrice && (int?)x.Price < maxPrice).ToList();
+            }
+
+            if (colorID != null)
+            {
+                return product.Where(x => x.ProductColors.Any(y => y.ColorId == colorID)).ToList();
+            }
+
+            if (sizeID != null)
+            {
+                return product.Where(x => x.ProductSizes.Any(y => y.SizeId == sizeID)).ToList();
+            }
+
+            #endregion
+            return product.ToList();
         }
 
         public Product GetProductById(int id)

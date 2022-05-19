@@ -26,7 +26,7 @@ namespace erp_ecommerce.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
 #nullable enable
         public IActionResult GetAllProducts(string? query, int? categoryID, int? brandID,
-            string? productType, int? colorID, int sizeID, int? minPrice, int? maxPrice,
+            string? productType, int? colorID, int? sizeID, int? minPrice, int? maxPrice,
             string? sortOrder, int? page)
         {
             // TODO: Validation (selected size, color)

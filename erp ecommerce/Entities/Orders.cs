@@ -11,7 +11,6 @@ namespace erp_ecommerce.Entities
         public string City { get; set; }
         public string Country { get; set; }
         public DateTime DateCreated { get; set; }
-        public int CustomerId { get; set; }
         public decimal TotalPrice { get; set; }
         public bool? IsPaymentDone { get; set; }
     }
