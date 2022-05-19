@@ -2,6 +2,7 @@ using erp_ecommerce.Data;
 using erp_ecommerce.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,7 +23,8 @@ namespace erp_ecommerce
         {
             services.AddControllers();
 
-            services.AddDbContext<ERPContext>();
+            // Setup db context (avoid overriding sOnConfiguring in ERPContext)
+            services.AddDbContext<ERPContext>(options => options.UseSqlServer(Configuration.GetConnectionString("erp")));
 
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
