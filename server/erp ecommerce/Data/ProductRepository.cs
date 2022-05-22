@@ -25,13 +25,15 @@ namespace erp_ecommerce.Data
 #nullable enable
         public IEnumerable<Product> GetAllProducts(string? query, int? categoryID, int? brandID,
             string? productType, int? colorID, int? sizeID, int? minPrice, int? maxPrice, 
-            string? sortOrder, int? page)
+            string? sortOrder, int pageNumber, int pageSize)
         {
-            //var pageNumber = page ?? 1;
-            //var pageSize = 10;
+            var pgNumber = pageNumber < 1 ? 1 : pageNumber;
+            var pgSize = pageSize > 10 ? 10 : pageSize;
 
-            // Including product sizes and colors
+            // Pagination and including product sizes and colors
             var product = context.Product
+                .Skip((pgNumber - 1) * pgSize)
+                .Take(pgSize)
                 .Include(x => x.ProductColors).ThenInclude(color => color.Color)
                 .Include(x => x.ProductSizes).ThenInclude(size => size.Size).ToList();
 

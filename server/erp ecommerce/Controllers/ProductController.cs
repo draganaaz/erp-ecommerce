@@ -27,11 +27,10 @@ namespace erp_ecommerce.Controllers
 #nullable enable
         public IActionResult GetAllProducts(string? query, int? categoryID, int? brandID,
             string? productType, int? colorID, int? sizeID, int? minPrice, int? maxPrice,
-            string? sortOrder, int? page)
+            string? sortOrder, int pageNumber, int pageSize)
         {
-            // TODO: Validation (selected size, color)
             return Ok(productRepository.GetAllProducts(query, categoryID, brandID, productType,
-                colorID, sizeID, minPrice, maxPrice, sortOrder, page));
+                colorID, sizeID, minPrice, maxPrice, sortOrder, pageNumber, pageSize));
         }
 
         [HttpGet("{productId}")]
