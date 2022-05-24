@@ -24,13 +24,21 @@ namespace erp_ecommerce.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
 #nullable enable
         public IActionResult GetAllProducts(string? query, int? categoryID, int? brandID,
             string? productType, int? colorID, int? sizeID, int? minPrice, int? maxPrice,
             string? sortOrder, int pageNumber, int pageSize)
         {
-            return Ok(productRepository.GetAllProducts(query, categoryID, brandID, productType,
-                colorID, sizeID, minPrice, maxPrice, sortOrder, pageNumber, pageSize));
+            var product = productRepository.GetAllProducts(query, categoryID, brandID, productType,
+                colorID, sizeID, minPrice, maxPrice, sortOrder, pageNumber, pageSize);
+
+            // TODO: handle empty response
+            if (product == null)
+            {
+                return NotFound("Product for specific search criteria not found");
+            } 
+            return Ok(product);
         }
 
         [HttpGet("{productId}")]
