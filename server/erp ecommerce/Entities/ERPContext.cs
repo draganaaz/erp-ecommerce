@@ -25,6 +25,15 @@ namespace erp_ecommerce.Entities
         public virtual DbSet<Size> Size { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=ERP;Trusted_Connection=True;");
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Brand>(entity =>
@@ -114,7 +123,9 @@ namespace erp_ecommerce.Entities
                     .HasMaxLength(300)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Discount).HasColumnType("int");
+                entity.Property(e => e.Image)
+                    .IsRequired()
+                    .HasMaxLength(500);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -144,7 +155,7 @@ namespace erp_ecommerce.Entities
 
             modelBuilder.Entity<ProductColors>(entity =>
             {
-                entity.HasKey(e => new { e.ColorId, e.ProductId });
+                entity.HasKey(e => e.ProductColorId);
 
                 entity.ToTable("ProductColors", "shop");
 
@@ -167,7 +178,7 @@ namespace erp_ecommerce.Entities
 
             modelBuilder.Entity<ProductSizes>(entity =>
             {
-                entity.HasKey(e => new { e.SizeId, e.ProductId });
+                entity.HasKey(e => e.ProductSizeId);
 
                 entity.ToTable("ProductSizes", "shop");
 
@@ -219,7 +230,7 @@ namespace erp_ecommerce.Entities
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(150);
+                    .HasMaxLength(300);
 
                 entity.Property(e => e.PhoneNumber)
                     .IsRequired()
