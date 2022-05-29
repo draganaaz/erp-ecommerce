@@ -32,15 +32,16 @@ namespace erp_ecommerce.Data
 
             // Pagination and including product sizes and colors
             var product = context.Product
-                .Skip((pgNumber - 1) * pgSize)
-                .Take(pgSize)
+                //.Skip((pgNumber - 1) * pgSize)
+                //.Take(pgSize)
                 .Include(x => x.ProductColors).ThenInclude(color => color.Color)
                 .Include(x => x.ProductSizes).ThenInclude(size => size.Size).ToList();
 
 
-            // Search bar
+            // Search bar, case insensitive filtering
             if (!String.IsNullOrEmpty(query))
-                return product.Where(x => x.Name.Contains(query) || x.Description.Contains(query));
+                return product.Where(x => x.Name.ToLower().Contains(query.ToLower()) 
+                    || x.Description.ToLower().Contains(query.ToLower()));
 
             // Sorting
             if (!String.IsNullOrEmpty(sortOrder))

@@ -1,13 +1,16 @@
-import "../styles/globals.css";
+import "../styles/globals.scss";
 import type { AppProps } from "next/app";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {RecoilRoot} from 'recoil';
+import { RecoilRoot } from "recoil";
+import { SSRProvider } from "react-bootstrap";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <RecoilRoot>
-      <Component {...pageProps} />
-    </RecoilRoot>
+    <SSRProvider>
+      <RecoilRoot>
+        <Component {...pageProps} />
+      </RecoilRoot>
+    </SSRProvider>
   );
 }
 

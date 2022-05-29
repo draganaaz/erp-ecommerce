@@ -1,34 +1,23 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { Button, FormControl, Form } from "react-bootstrap";
 import { useRecoilState } from "recoil";
-import axios from "axios";
-import {searchResultsState} from '../atoms/atoms'
+import { productsState } from "../atoms/atoms";
+import filterProducts from "../services/filterProducts";
 
 const SearchBar = () => {
   const [input, setInput] = useState("");
-  const [, setProducts] = useRecoilState(searchResultsState);
-  const minChars = 3; // number of chars after which search is performed
-  const productsUrl = `${process.env.NEXT_PUBLIC_API_URL}/product`;
+  const [, setProducts] = useRecoilState(productsState);
 
-  const getProducts = async (input) => {
-    // Begin searching after minimal required number of chars
-    if (input.length >= minChars) {
-      axios
-        .get(`${productsUrl}/query=${input}`)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
-  };
+  const minChars = 3; // number of chars after which search is performed
 
   // Search products on input change
   useEffect(() => {
-    getProducts(input).then((products) => {
-      setProducts(products);
-    });
+    if (input.length >= minChars) {
+      filterProducts({ query: input }).then((res) => {
+        setProducts(res);
+      });
+    }
   }, [input]);
 
   // Handle input change

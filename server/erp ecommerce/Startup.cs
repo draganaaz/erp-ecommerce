@@ -26,14 +26,24 @@ namespace erp_ecommerce
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("https://localhost:44351", "http://localhost:3000")
+                            .AllowAnyHeader().AllowAnyMethod();
+                    });
+            });
+
             services.AddControllers();
 
             // Setup db context (avoid overriding sOnConfiguring in ERPContext)
             services.AddDbContext<ERPContext>(options => options.UseSqlServer(Configuration.GetConnectionString("erp")));
-            // Setapovanje konteksta za modele za autorizaciju
+            // Setup context for model authorization
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("erp")));
 
-            // Setapovanje Identity paketa
+            // Setup identity package
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -74,6 +84,14 @@ namespace erp_ecommerce
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder =>
+            {
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
 
             app.UseHttpsRedirection();
 
