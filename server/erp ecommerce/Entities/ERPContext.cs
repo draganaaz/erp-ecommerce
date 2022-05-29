@@ -1,14 +1,11 @@
 ﻿using System;
+using JWTAuthentication.Authentication;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace erp_ecommerce.Entities
 {
     public partial class ERPContext : DbContext
     {
-        public ERPContext()
-        {
-        }
 
         public ERPContext(DbContextOptions<ERPContext> options)
             : base(options)
@@ -23,13 +20,11 @@ namespace erp_ecommerce.Entities
         public virtual DbSet<ProductColors> ProductColors { get; set; }
         public virtual DbSet<ProductSizes> ProductSizes { get; set; }
         public virtual DbSet<Size> Size { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=ERP;Trusted_Connection=True;");
             }
         }
@@ -209,36 +204,6 @@ namespace erp_ecommerce.Entities
                     .IsRequired()
                     .HasColumnName("Size")
                     .HasMaxLength(5);
-            });
-
-            modelBuilder.Entity<Users>(entity =>
-            {
-                entity.HasKey(e => e.UserId)
-                    .HasName("PK_UserID");
-
-                entity.ToTable("Users", "shop");
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
-
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(300);
-
-                entity.Property(e => e.PhoneNumber)
-                    .IsRequired()
-                    .HasMaxLength(150);
-
-                entity.Property(e => e.Role)
-                    .IsRequired()
-                    .HasMaxLength(10);
             });
 
             OnModelCreatingPartial(modelBuilder);
