@@ -8,7 +8,7 @@ const Grid = () => {
   const products = useRecoilValue(productsState);
 
   return (
-    <GridHelper key={Math.random()} colCount={2} md={6}>
+    <GridHelper key={Math.random()} colCount={3} md={4}>
       {products.length > 0 ? (
         products.map((product) => (
           <CardWrapper

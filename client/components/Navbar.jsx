@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Container, Nav } from "react-bootstrap";
+import BasketIcon from "./BasketIcon";
 import SearchBar from "./SearchBar";
 
 const NavbarItems = {
   Categories: "Categories",
   Brands: "Brands",
-  Products: "Products",
   Man: "Man",
   Woman: "Woman",
   Kids: "Kids",
@@ -19,10 +19,14 @@ const NavbarComponent = () => {
     router.push(`/${param.toString().toLowerCase()}`);
   };
 
+  const openCart = () => {
+    router.push("/cart");
+  };
+
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="#">eSport</Navbar.Brand>
+        <Navbar.Brand onClick={() => redirect('/')}>eSport</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -36,24 +40,18 @@ const NavbarComponent = () => {
             <Nav.Link onClick={() => redirect(NavbarItems.Brands)}>
               {NavbarItems.Brands}
             </Nav.Link>
-            <NavDropdown
-              onClick={() => redirect(NavbarItems.Products)}
-              title={NavbarItems.Products}
-              id="navbarScrollingDropdown"
-            >
-              <NavDropdown.Item onClick={() => redirect(NavbarItems.Man)}>
-                {NavbarItems.Man}
-              </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => redirect(NavbarItems.Woman)}>
-                {NavbarItems.Woman}
-              </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => redirect(NavbarItems.Kids)}>
-                {NavbarItems.Kids}
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-            </NavDropdown>
+            <Nav.Link onClick={() => redirect(NavbarItems.Man)}>
+              {NavbarItems.Man}
+            </Nav.Link>
+            <Nav.Link onClick={() => redirect(NavbarItems.Woman)}>
+              {NavbarItems.Woman}
+            </Nav.Link>
+            <Nav.Link onClick={() => redirect(NavbarItems.Kids)}>
+              {NavbarItems.Kids}
+            </Nav.Link>
           </Nav>
           <SearchBar />
+          <BasketIcon onClick={openCart} />
         </Navbar.Collapse>
       </Container>
     </Navbar>

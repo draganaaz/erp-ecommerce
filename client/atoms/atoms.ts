@@ -19,3 +19,8 @@ export const categoriesState = atom({
     key: 'categoriesState',
     default: [] as ICategory[]
 })
+
+export const cartState = atom({
+    key: 'cartState',
+    default: [] as any
+})

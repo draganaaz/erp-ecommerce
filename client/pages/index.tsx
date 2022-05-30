@@ -2,9 +2,8 @@
 import type { NextPage } from "next";
 import { useRecoilState } from "recoil";
 import { brandsState, categoriesState, productsState } from "../atoms/atoms";
-import NavbarComponent from "../components/Navbar.jsx";
 import Grid from "../components/Grid";
-import { CarouselWrapper } from "../components/Carousel";
+// import { CarouselWrapper } from "../components/Carousel";
 import { useEffect } from "react";
 import getAllBrands from "../services/getAllBrands";
 import getAllCategories from "../services/getAllCategories";
@@ -24,7 +23,6 @@ const Home: NextPage = () => {
 
   return (
     <div style={{ backgroundColor: "beige" }}>
-      <NavbarComponent />
       {products && <Grid />}
       {/* <CarouselWrapper categories={categories} /> */}
     </div>
