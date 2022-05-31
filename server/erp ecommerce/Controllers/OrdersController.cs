@@ -1,6 +1,8 @@
 ﻿using erp_ecommerce.Data;
 using erp_ecommerce.Entities;
 using erp_ecommerce.Models;
+using JWTAuthentication.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,6 +20,7 @@ namespace erp_ecommerce.Controllers
             this.orderRepository = orderRepository;
         }
 
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAllOrders()
@@ -25,6 +28,7 @@ namespace erp_ecommerce.Controllers
             return Ok(orderRepository.GetAllOrders());
         }
 
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpGet("{orderId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -38,6 +42,7 @@ namespace erp_ecommerce.Controllers
             return Ok(order);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult CreateOrder(Orders order)
         {
@@ -58,6 +63,7 @@ namespace erp_ecommerce.Controllers
             return Ok("Order has been created.");
         }
 
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -90,6 +96,7 @@ namespace erp_ecommerce.Controllers
             return Ok("Order has been updated.");
         }
 
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpDelete("{orderId}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

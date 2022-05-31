@@ -1,6 +1,8 @@
 ﻿using erp_ecommerce.Data;
 using erp_ecommerce.Entities;
 using erp_ecommerce.Models;
+using JWTAuthentication.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +11,7 @@ namespace erp_ecommerce.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private IProductRepository productRepository { get; }
@@ -30,10 +33,14 @@ namespace erp_ecommerce.Controllers
             string? productType, int? colorID, int? sizeID, int? minPrice, int? maxPrice,
             string? sortOrder, int pageNumber, int pageSize)
         {
+            // If we don't pass pageNumber and pageSize, null is 0 by default so checking for that
+            if (pageNumber <= 0 || pageSize <= 0)
+            {
+                return BadRequest("You have to pass pageNumber and pageSize");
+            }
             var product = productRepository.GetAllProducts(query, categoryID, brandID, productType,
                 colorID, sizeID, minPrice, maxPrice, sortOrder, pageNumber, pageSize);
 
-            // TODO: handle empty response
             if (product == null)
             {
                 return NotFound("Product for specific search criteria not found");
@@ -70,6 +77,7 @@ namespace erp_ecommerce.Controllers
             return null;
         }
 
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpPost]
         public IActionResult AddProduct(Product product)
         {
@@ -92,6 +100,7 @@ namespace erp_ecommerce.Controllers
             return Ok("Product has been created.");
         }
 
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -126,6 +135,7 @@ namespace erp_ecommerce.Controllers
             return Ok("Product has been updated.");
         }
 
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpDelete("{productId}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace erp_ecommerce.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220524225041_initial-auth")]
+    [Migration("20220531132008_initial-auth")]
     partial class initialauth
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

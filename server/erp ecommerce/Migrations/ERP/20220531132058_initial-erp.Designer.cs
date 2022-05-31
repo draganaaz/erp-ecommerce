@@ -10,7 +10,7 @@ using erp_ecommerce.Entities;
 namespace erp_ecommerce.Migrations.ERP
 {
     [DbContext(typeof(ERPContext))]
-    [Migration("20220524230324_initial-erp")]
+    [Migration("20220531132058_initial-erp")]
     partial class initialerp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

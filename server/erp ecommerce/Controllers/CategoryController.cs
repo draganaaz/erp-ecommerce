@@ -1,6 +1,8 @@
 ﻿using erp_ecommerce.Data;
 using erp_ecommerce.Entities;
 using erp_ecommerce.Models;
+using JWTAuthentication.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -38,6 +40,7 @@ namespace erp_ecommerce.Controllers
             return Ok(category);
         }
 
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpPost]
         public IActionResult CreateCategory(Category category)
         {
@@ -58,6 +61,7 @@ namespace erp_ecommerce.Controllers
             return Ok("Category has been created.");
         }
 
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -90,6 +94,7 @@ namespace erp_ecommerce.Controllers
             return Ok("Category has been updated.");
         }
 
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpDelete("{categoryId}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
