@@ -52,6 +52,13 @@ a {
   color: #fffbf1;
 }
 
+// User icon
+.user-icon {
+  content: url('https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png');  
+  color: #fffbf1;
+  width: 35px;
+}
+
 // Cart
 .cart-container {
   position: fixed;
@@ -63,11 +70,12 @@ a {
   background-color: #f0ede1;
 
   &__empty {
+    margin: 10%;
     .cart__modal {
-      margin: 0 64px;
+      margin: auto;
       padding: 48px 40px;
       background-color: #f0ede1;
-      text-align: left;
+      width: 50%;
 
       button {
         margin: 32px 0 0;

@@ -20,3 +20,8 @@ export interface ICategory {
     category1: string
     image: string
 }
+
+export interface ILogin {
+    username: string
+    password: string
+}

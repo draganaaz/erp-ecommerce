@@ -1,7 +1,10 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
-import BasketIcon from "./BasketIcon";
+import { getUserNameFromJwt, removeUser } from "../services/tokenService";
+import { isLoggedIn } from "../services/userService";
+import BasketIcon from "./icons/BasketIcon";
+import UserIcon from "./icons/UserIcon";
 import SearchBar from "./SearchBar";
 
 const NavbarItems = {
@@ -13,20 +16,32 @@ const NavbarItems = {
 };
 
 const NavbarComponent = () => {
+  const [userName, setUserName] = useState("");
   const router = useRouter();
 
-  const redirect = (param) => {
+  const redirect = (param: string) => {
     router.push(`/${param.toString().toLowerCase()}`);
   };
 
-  const openCart = () => {
-    router.push("/cart");
+  // If user is logged in, log him out, otherwise redirect to login page
+  const handleUserIconClick = () => {
+    if (isLoggedIn()) {
+      removeUser();
+      router.reload();
+    } else {
+      redirect("login");
+    }
   };
+
+  // Fetching username from localStorage in useEffect where window is defined
+  useEffect(() => {
+    isLoggedIn() ? setUserName(`Welcome, ${getUserNameFromJwt()}`) : setUserName('')
+  }, []);
 
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
-        <Navbar.Brand onClick={() => redirect('/')}>eSport</Navbar.Brand>
+        <Navbar.Brand onClick={() => redirect("/")}>eSport</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -51,7 +66,9 @@ const NavbarComponent = () => {
             </Nav.Link>
           </Nav>
           <SearchBar />
-          <BasketIcon onClick={openCart} />
+          <BasketIcon onClick={() => redirect("/cart")} />
+          {userName}
+          <UserIcon onClick={handleUserIconClick} />
         </Navbar.Collapse>
       </Container>
     </Navbar>

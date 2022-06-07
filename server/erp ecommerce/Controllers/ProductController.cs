@@ -11,7 +11,6 @@ namespace erp_ecommerce.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ProductController : ControllerBase
     {
         private IProductRepository productRepository { get; }
@@ -31,7 +30,7 @@ namespace erp_ecommerce.Controllers
 #nullable enable
         public IActionResult GetAllProducts(string? query, int? categoryID, int? brandID,
             string? productType, int? colorID, int? sizeID, int? minPrice, int? maxPrice,
-            string? sortOrder, int pageNumber, int pageSize)
+            string? sortOrder, int pageNumber = 1, int pageSize = 10)
         {
             // If we don't pass pageNumber and pageSize, null is 0 by default so checking for that
             if (pageNumber <= 0 || pageSize <= 0)
