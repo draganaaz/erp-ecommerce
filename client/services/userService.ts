@@ -1,5 +1,6 @@
 import { axiosInstance } from "../helpers/axiosInstances";
-import { ILogin } from "../types/types";
+import { messages } from "../messages/messages";
+import { ILogin, IRegister } from "../types/types";
 import { setUser } from "./tokenService";
 
 // Login user
@@ -14,9 +15,32 @@ export const login = async (data: ILogin) => {
             setUser(res.data.token);
         })
         .catch((err) => {
-            Promise.reject(err)
+            if (err.response.status === 400) {
+                throw new Error(messages.invalidEmailOrPassword)
+            }
+            else throw new Error(err)
         });
 };
+
+// Register user
+export const register = async (data: IRegister) => {
+    await axiosInstance
+        .post("/register", {
+            email: data.email,
+            username: data.username,
+            password: data.password,
+        })
+        .catch((err) => {
+            // TODO: handle these on backend
+            if (err.response.data === messages.userAlreadyExists) {
+                throw new Error(messages.userAlreadyExists);
+            } else if (err.response.status === 400) {
+                throw new Error(messages.unexpectedError);
+            } else if (err.response.status >= 500) {
+                throw new Error(messages.serverError);
+            }
+        });
+}
 
 // If user is logged in, check whether the expiration time is over or not
 export const isLoggedIn = () => {
@@ -28,8 +52,7 @@ export const isLoggedIn = () => {
             return userPayload.exp > Date.now() / 1000;
         } else {
             // Notify the user that the token has expired
-            console.log("The token has expired");
-            return false;
+            throw new Error(messages.tokenExpired)
         }
     } else return false;
 };

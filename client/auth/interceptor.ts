@@ -1,4 +1,5 @@
 import { axiosInstance } from "../helpers/axiosInstances";
+import { messages } from "../messages/messages";
 import { getToken } from "../services/tokenService";
 import { isLoggedIn } from "../services/userService";
 
@@ -24,18 +25,16 @@ axiosInstance.interceptors.response.use((response) => {
     return response;
 }, (error) => {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
-    if (error && error.response.status) {
+    if (error && error.response && error.response.status) {
         switch (error.response.status) {
             case 401:
-                throw new Error('You don\'t have permission to see this page.')
+                throw new Error(messages.unauthorized401)
+            case 409:
+                throw new Error(messages.userAlreadyExists)
             case 500:
-                // Actions for Error 500
-                Promise.reject(error);
-            default:
-                throw new Error('From interceptor => ', error);
+                throw new Error(messages.serverError)
+            // default:
+            //     throw new Error('From interceptor => ', error);
         }
-    } else {
-        // Occurs for axios error.message = 'Network Error'
-        throw new Error('Network error', error)
     }
 });

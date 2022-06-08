@@ -33,7 +33,10 @@ const CardWrapper = (data: any) => {
         }}
       >
         <Price price={product.price} />
-        <BasketIcon onClick={() => handleAddToCart(product)} />
+        {/* Display cart icon only for products, not brands and categories */}
+        {product.description && (
+          <BasketIcon onClick={() => handleAddToCart(product)} />
+        )}
       </span>
     </Card>
   );

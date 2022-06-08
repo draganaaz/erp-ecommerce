@@ -1,32 +1,32 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from "next/router";
-import React, { SyntheticEvent, useState } from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { axiosInstance } from "../helpers/axiosInstances";
-import { setUser } from "../services/tokenService";
+import { messages } from "../messages/messages";
 import ToastMessage from "./Toast";
 
-const LoginForm = () => {
+const RegisterForm = () => {
+  const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [toastMessage, setToastMessage] = useState("");
 
   const router = useRouter();
 
-  const isFormValid = username !== "" && password !== "";
-  const handleLoginClick = async (e: SyntheticEvent) => {
+  const isFormValid = email !== "" && username !== "" && password !== "";
+
+  const handleRegisterClick = async (e: SyntheticEvent) => {
     e.preventDefault();
 
     isFormValid &&
       (await axiosInstance
-        .post("/login", {
+        .post("/register", {
+          email,
           username,
           password,
         })
-        .then((res: any) => {
-          // On successfull login, save jwt and redirect to home
-          setUser(res.data.token);
-          router.push("/");
-        })
+        .then(() => router.push("/login"))
         .catch((err: Error) => {
           setToastMessage(err.message);
         }));
@@ -35,7 +35,15 @@ const LoginForm = () => {
   return (
     <>
       <Form>
-        <Form.Group className="mb-3" controlId="formBasicUsername">
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicUsername ">
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
@@ -55,9 +63,9 @@ const LoginForm = () => {
           variant="primary"
           type="submit"
           disabled={!isFormValid}
-          onClick={(e) => handleLoginClick(e)}
+          onClick={(e) => handleRegisterClick(e)}
         >
-          Login
+          Register
         </Button>
       </Form>
       {toastMessage !== "" && <ToastMessage toastMessage={toastMessage} />}
@@ -65,4 +73,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
