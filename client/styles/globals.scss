@@ -51,15 +51,20 @@ a {
   margin: 0 15px;
   color: #fffbf1;
   &:active {
-    transform: scale(.9);
+    transform: scale(0.9);
   }
 }
 
-// User icon
-.user-icon {
-  content: url("https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png");
-  color: #fffbf1;
-  width: 35px;
+.cart-count {
+  position: absolute;
+  right: 10px;
+  background-color: #7e7e7e;
+  color: #ffffff;
+  padding: 4px 8px;
+  border-radius: 50%;
+  font-size: 18px;
+  letter-spacing: 1px;
+  line-height: 18px;
 }
 
 // Cart

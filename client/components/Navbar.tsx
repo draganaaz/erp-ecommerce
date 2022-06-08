@@ -35,7 +35,9 @@ const NavbarComponent = () => {
 
   // Fetching username from localStorage in useEffect where window is defined
   useEffect(() => {
-    isLoggedIn() ? setUserName(`Welcome, ${getUserNameFromJwt()}`) : setUserName('')
+    isLoggedIn()
+      ? setUserName(`Welcome, ${getUserNameFromJwt()}`)
+      : setUserName("");
   }, []);
 
   return (
@@ -66,7 +68,7 @@ const NavbarComponent = () => {
             </Nav.Link>
           </Nav>
           <SearchBar />
-          <BasketIcon onClick={() => redirect("/cart")} />
+          <BasketIcon onClick={() => redirect("/cart")} isInNavbar={true} />
           {userName}
           <UserIcon onClick={handleUserIconClick} />
         </Navbar.Collapse>

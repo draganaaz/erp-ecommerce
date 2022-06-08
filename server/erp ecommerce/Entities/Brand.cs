@@ -11,7 +11,8 @@ namespace erp_ecommerce.Entities
         }
 
         public int BrandId { get; set; }
-        public string Brand1 { get; set; }
+        public string BrandName { get; set; }
+        public string Image { get; set; }
 
         public virtual ICollection<Product> Product { get; set; }
     }

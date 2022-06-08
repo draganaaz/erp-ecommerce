@@ -11,7 +11,7 @@ namespace erp_ecommerce.Entities
         }
 
         public int ColorId { get; set; }
-        public string Color1 { get; set; }
+        public string ColorName { get; set; }
 
         public virtual ICollection<ProductColors> ProductColors { get; set; }
     }

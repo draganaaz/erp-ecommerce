@@ -37,10 +37,14 @@ namespace erp_ecommerce.Entities
 
                 entity.Property(e => e.BrandId).HasColumnName("BrandID");
 
-                entity.Property(e => e.Brand1)
+                entity.Property(e => e.BrandName)
                     .IsRequired()
-                    .HasColumnName("Brand")
+                    .HasColumnName("BrandName")
                     .HasMaxLength(50);
+
+                entity.Property(e => e.Image)
+                    .IsRequired()
+                    .HasMaxLength(500);
             });
 
             modelBuilder.Entity<Category>(entity =>
@@ -49,10 +53,14 @@ namespace erp_ecommerce.Entities
 
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
-                entity.Property(e => e.Category1)
+                entity.Property(e => e.CategoryName)
                     .IsRequired()
-                    .HasColumnName("Category")
+                    .HasColumnName("CategoryName")
                     .HasMaxLength(50);
+
+                entity.Property(e => e.Image)
+                   .IsRequired()
+                   .HasMaxLength(500);
             });
 
             modelBuilder.Entity<Color>(entity =>
@@ -61,9 +69,9 @@ namespace erp_ecommerce.Entities
 
                 entity.Property(e => e.ColorId).HasColumnName("ColorID");
 
-                entity.Property(e => e.Color1)
+                entity.Property(e => e.ColorName)
                     .IsRequired()
-                    .HasColumnName("Color")
+                    .HasColumnName("ColorName")
                     .HasMaxLength(20);
             });
 
@@ -200,9 +208,9 @@ namespace erp_ecommerce.Entities
 
                 entity.Property(e => e.SizeId).HasColumnName("SizeID");
 
-                entity.Property(e => e.Size1)
+                entity.Property(e => e.SizeName)
                     .IsRequired()
-                    .HasColumnName("Size")
+                    .HasColumnName("SizeName")
                     .HasMaxLength(5);
             });
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Badge, Card } from "react-bootstrap";
 import { useRecoilState } from "recoil";
 import { cartState } from "../atoms/atoms";
 import { addToCart } from "../helpers/addToCart";
@@ -11,6 +11,7 @@ const CardWrapper = (data: any) => {
   const { product } = data;
   const [cart, setCart] = useRecoilState(cartState);
 
+  // Logic for adding product to cart state
   const handleAddToCart = (product: IProduct) => {
     const newCart = addToCart(cart, product);
     setCart(newCart);
@@ -21,7 +22,7 @@ const CardWrapper = (data: any) => {
       <Card.Img variant="top" src={product.image} alt={"product image"} />
       <Card.Body>
         <Card.Title>
-          {product.name || product.category1 || product.brand1}
+          {product.name || product.categoryName || product.brandName}
         </Card.Title>
         <Card.Text>{product.description}</Card.Text>
       </Card.Body>
@@ -34,8 +35,21 @@ const CardWrapper = (data: any) => {
       >
         <Price price={product.price} />
         {/* Display cart icon only for products, not brands and categories */}
-        {product.description && (
+        {product.description && product.isAvailable ? (
           <BasketIcon onClick={() => handleAddToCart(product)} />
+        ) : (
+          <Badge
+            pill
+            bg="secondary"
+            style={{
+              paddingTop: "6px",
+              width: "90px",
+              height: "25px",
+              marginTop: "8px",
+            }}
+          >
+            out of stock
+          </Badge>
         )}
       </span>
     </Card>

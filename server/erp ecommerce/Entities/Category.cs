@@ -11,7 +11,8 @@ namespace erp_ecommerce.Entities
         }
 
         public int CategoryId { get; set; }
-        public string Category1 { get; set; }
+        public string CategoryName { get; set; }
+        public string Image { get; set; }
 
         public virtual ICollection<Product> Product { get; set; }
     }

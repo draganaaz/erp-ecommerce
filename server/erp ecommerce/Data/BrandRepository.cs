@@ -33,7 +33,7 @@ namespace erp_ecommerce.Data
 
         public void UpdateBrand(Brand brand, BrandDto brandDto)
         {
-            brand.Brand1 = brandDto.Brand;
+            brand.BrandName = brandDto.BrandName;
         }
 
         public void DeleteBrand(Brand brand)

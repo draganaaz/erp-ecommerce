@@ -1,5 +1,5 @@
 export interface IProduct {
-    id: number
+    productId: number
     name: string
     description: string
     isAvailable: boolean
@@ -11,13 +11,13 @@ export interface IProduct {
 
 export interface IBrand {
     brandId: string
-    brand1: string
+    brandName: string
     image: string
 }
 
 export interface ICategory {
     categoryId: string
-    category1: string
+    categoryName: string
     image: string
 }
 
@@ -30,4 +30,11 @@ export interface IRegister {
     email: string
     username: string
     password: string
+}
+
+export interface ICart {
+    id: number
+    name: string
+    quantity: number
+    price: number
 }

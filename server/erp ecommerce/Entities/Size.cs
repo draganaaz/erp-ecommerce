@@ -11,7 +11,7 @@ namespace erp_ecommerce.Entities
         }
 
         public int SizeId { get; set; }
-        public string Size1 { get; set; }
+        public string SizeName { get; set; }
 
         public virtual ICollection<ProductSizes> ProductSizes { get; set; }
     }

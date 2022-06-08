@@ -1,6 +1,6 @@
 
 import { atom } from "recoil";
-import { IBrand, ICategory, IProduct } from "../types/types";
+import { IBrand, ICart, ICategory, IProduct } from "../types/types";
 
 // Key = unique ID (with respect to other atoms/selectors)
 // Default = default value (aka initial value)
@@ -22,5 +22,5 @@ export const categoriesState = atom({
 
 export const cartState = atom({
     key: 'cartState',
-    default: [] as any
+    default: [] as ICart[]
 })

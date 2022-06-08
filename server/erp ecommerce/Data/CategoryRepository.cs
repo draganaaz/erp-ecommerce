@@ -33,7 +33,7 @@ namespace erp_ecommerce.Data
 
         public void UpdateCategory(Category category, CategoryDto categoryDto)
         {
-            category.Category1 = categoryDto.Category;
+            category.CategoryName = categoryDto.CategoryName;
         }
 
         public void DeleteCategory(Category category)
