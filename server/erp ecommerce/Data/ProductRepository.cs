@@ -69,7 +69,7 @@ namespace erp_ecommerce.Data
 
             if (!String.IsNullOrEmpty(productType))
             {
-                return product.Where(x => x.ProductType.Equals(productType)).ToList();
+                return product.Where(x => x.ProductType.ToLower().Equals(productType.ToLower())).ToList();
             }
 
             if (minPrice != null && maxPrice != null)

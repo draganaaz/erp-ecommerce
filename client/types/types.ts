@@ -37,3 +37,9 @@ export interface ICart {
     product: IProduct
     quantity: number
 }
+
+export const productTypes = {
+    man: 'musko',
+    woman: 'zensko',
+    kids: 'decije'
+}
