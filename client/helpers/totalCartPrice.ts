@@ -8,7 +8,7 @@ export const cartTotal = selector({
         const cart = get(cartState);
 
         return cart.reduce((total: number, item: ICart) => {
-            return total + (item.price * item.quantity);
+            return total + (item.product.price * item.quantity);
         }, 0);
     }
 })

@@ -95,13 +95,9 @@ a {
     }
   }
 
-  &__nav {
-    padding-left: 64px;
-  }
-
   &__inner {
     // max-width: $containerWidth;
-    padding: 0 64px;
+    padding: 20px 64px;
     height: 100%;
     overflow-y: auto;
     justify-content: space-around;
@@ -151,6 +147,7 @@ a {
         z-index: 4;
         margin-bottom: 0;
         border-bottom: 2px solid #666666;
+        height: 120px;
 
         &__inner {
           display: flex;
@@ -188,7 +185,7 @@ a {
         width: 530px;
 
         p.btn--remove-btn {
-          color: #fff1f1;
+          color: black;
           margin: 0;
           text-align: left;
           text-transform: capitalize;

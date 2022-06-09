@@ -34,7 +34,6 @@ export interface IRegister {
 
 export interface ICart {
     id: number
-    name: string
+    product: IProduct
     quantity: number
-    price: number
 }

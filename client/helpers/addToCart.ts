@@ -2,7 +2,7 @@ import { ICart, IProduct } from "../types/types";
 
 export const addToCart = (cart: ICart[], product: IProduct) => {
     const newCart = [...cart];
-    const foundIndex = cart.findIndex(x => x.id === product.productId);
+    const foundIndex = cart.findIndex(item => item.id === product.productId);
 
     // Increase quantity if product is already in cart
     if (foundIndex >= 0) {
@@ -16,8 +16,7 @@ export const addToCart = (cart: ICart[], product: IProduct) => {
     // Add new item
     newCart.push({
         id: product.productId,
-        name: product.name,
-        price: product.price,
+        product,
         quantity: 1,
     });
     return newCart;

@@ -1,33 +1,29 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import { ChangeEvent, useState } from "react";
-import { IProduct } from "../types/types";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { cartState } from "../atoms/atoms";
+import { removeItemFromCart } from "../helpers/removeItemFromCart";
+import { updateItemInCart } from "../helpers/updateItemInCart";
+import { ICart, IProduct } from "../types/types";
 import Price from "./Price";
 
 interface CartItemProps {
-  product: IProduct;
+  cartItem: ICart;
 }
 
-const CartItem = ({ product }: CartItemProps) => {
-  const [quantity, setQuantity] = useState<number>(0);
-
-  // Logic for removing item from cart
-  const removeFromCart = async (id: number) => {
-    // TODO: implement logic
-  };
-
-  // Logic for updating item from cart
-  const updateItemInCart = async (quantity: number) => {
-    // TODO: implement logic
-  };
+const CartItem = ({ cartItem }: CartItemProps) => {
+  const [quantity, setQuantity] = useState<number>(cartItem.quantity);
+  const [cartItems, setCartItems] = useRecoilState(cartState);
 
   // Method that triggers on buttons '+' and '-' click and calls the service to update it
-  const updateQuantity = async (n = 1) => {
+  const updateQuantity = (n = 1) => {
     const val = Number(quantity) + n;
 
     if (Number.isInteger(val) && val >= 0) {
       setQuantity(val);
-      await updateItemInCart(val);
+      const newCart = updateItemInCart(cartItems, cartItem.id, n);
+      setCartItems(newCart);
     }
   };
 
@@ -35,12 +31,9 @@ const CartItem = ({ product }: CartItemProps) => {
     setQuantity(Number(" "));
   };
 
-  const handleQuantity = async (e: ChangeEvent<HTMLInputElement>) => {
-    const val = Number(e.target.value);
-    if (Number.isInteger(val) && val >= 0) {
-      setQuantity(Number(e.target.value));
-      // await updateItemInCart(val);
-    }
+  const handleRemoveClick = () => {
+    const newCart = removeItemFromCart(cartItems, cartItem.id);
+    setCartItems(newCart);
   };
 
   return (
@@ -49,18 +42,18 @@ const CartItem = ({ product }: CartItemProps) => {
         <div className="cart-item-img">
           <img
             id="cart-product-image"
-            src={product?.image}
-            alt={product?.name}
+            src={cartItem.product?.image}
+            alt={cartItem.product?.name}
           />
         </div>
         <div className="cart__text">
           <p id="cart-product-title" className="title">
-            {product?.name}
+            {cartItem.product?.name}
           </p>
           <p
             id="remove-quantity"
             className="btn--remove-btn"
-            onClick={() => removeFromCart(product.id)}
+            onClick={handleRemoveClick}
           >
             remove
           </p>
@@ -84,7 +77,7 @@ const CartItem = ({ product }: CartItemProps) => {
               min={0}
               className="cart__quantity"
               value={quantity}
-              onChange={handleQuantity}
+              disabled
               onFocus={handleQuantityInput}
             />
           </label>
@@ -99,7 +92,10 @@ const CartItem = ({ product }: CartItemProps) => {
             </div>
           </div>
         </div>
-        <Price price={product.price} discount={product.discount} />
+        <Price
+          price={cartItem.product.price}
+          discount={cartItem.product.discount}
+        />
       </div>
     </>
   );
