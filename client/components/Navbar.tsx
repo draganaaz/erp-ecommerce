@@ -13,11 +13,15 @@ const NavbarItems = {
   Man: "Man",
   Woman: "Woman",
   Kids: "Kids",
+  AdminPanel: "AdminPanel",
 };
 
 const NavbarComponent = () => {
   const [userName, setUserName] = useState("");
   const router = useRouter();
+
+  // TODO: fetch this from token
+  const isAdmin = true;
 
   const redirect = (param: string) => {
     router.push(`/${param.toString().toLowerCase()}`);
@@ -66,6 +70,12 @@ const NavbarComponent = () => {
             <Nav.Link onClick={() => redirect(NavbarItems.Kids)}>
               {NavbarItems.Kids}
             </Nav.Link>
+            {/* Display admin panel if admin is logged in */}
+            {isAdmin && (
+              <Nav.Link onClick={() => redirect(NavbarItems.AdminPanel)}>
+                {NavbarItems.AdminPanel}
+              </Nav.Link>
+            )}
           </Nav>
           <SearchBar />
           <BasketIcon onClick={() => redirect("/cart")} isInNavbar={true} />

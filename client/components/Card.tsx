@@ -34,22 +34,26 @@ const CardWrapper = (data: any) => {
         }}
       >
         <Price price={product.price} />
-        {/* Display cart icon only for products, not brands and categories */}
-        {product.description && product.isAvailable ? (
-          <BasketIcon onClick={() => handleAddToCart(product)} />
+        {/* Display cart icon only for products, not brands and categories, same goes for OOS button */}
+        {product.description ? (
+          product.isAvailable ? (
+            <BasketIcon onClick={() => handleAddToCart(product)} />
+          ) : (
+            <Badge
+              pill
+              bg="secondary"
+              style={{
+                paddingTop: "6px",
+                width: "90px",
+                height: "25px",
+                marginTop: "8px",
+              }}
+            >
+              out of stock
+            </Badge>
+          )
         ) : (
-          <Badge
-            pill
-            bg="secondary"
-            style={{
-              paddingTop: "6px",
-              width: "90px",
-              height: "25px",
-              marginTop: "8px",
-            }}
-          >
-            out of stock
-          </Badge>
+          ""
         )}
       </span>
     </Card>

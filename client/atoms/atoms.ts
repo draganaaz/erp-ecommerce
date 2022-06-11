@@ -24,3 +24,8 @@ export const cartState = atom({
     key: 'cartState',
     default: [] as ICart[]
 })
+
+export const showModalState = atom({
+    key: 'showModalState',
+    default: false
+})

@@ -55,9 +55,15 @@ a {
   }
 }
 
+.user-icon {
+  content: url("https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png");
+  color: #fffbf1;
+  width: 35px;
+}
+
 .cart-count {
   position: absolute;
-  right: 10px;
+  right: 50px;
   background-color: #7e7e7e;
   color: #ffffff;
   padding: 4px 8px;
@@ -568,4 +574,34 @@ a {
   letter-spacing: 1.2px;
   line-height: 38px;
   color: #444444;
+}
+
+// Tabs
+
+nav.tabs.configurator-tabs {
+  position: absolute;
+  width: auto;
+  z-index: 9;
+  top: 12%;
+  text-align: center;
+}
+
+ul {
+  margin-bottom: 0 !important;
+  list-style: none;
+  display: flex;
+
+  li.conf-item {
+    // margin-right: 15%;
+    &.selected {
+      p {
+        color: #444444;
+        font-weight: 700;
+      }
+    }
+    p {
+      color: black;
+      text-transform: none;
+    }
+  }
 }

@@ -43,3 +43,9 @@ export const productTypes = {
     woman: 'zensko',
     kids: 'decije'
 }
+
+export const tableTypes = {
+    products: "Products",
+    brands: "Brands",
+    categories: "Categories",
+}
