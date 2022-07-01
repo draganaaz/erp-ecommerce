@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import { ChangeEvent, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useState } from "react";
+import { useRecoilState } from "recoil";
 import { cartState } from "../atoms/atoms";
 import { removeItemFromCart } from "../helpers/removeItemFromCart";
 import { updateItemInCart } from "../helpers/updateItemInCart";
 import { ICart, IProduct } from "../types/types";
-import Price from "./Price";
 
 interface CartItemProps {
   cartItem: ICart;
@@ -25,10 +24,6 @@ const CartItem = ({ cartItem }: CartItemProps) => {
       const newCart = updateItemInCart(cartItems, cartItem.id, n);
       setCartItems(newCart);
     }
-  };
-
-  const handleQuantityInput = () => {
-    setQuantity(Number(" "));
   };
 
   const handleRemoveClick = () => {

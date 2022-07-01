@@ -41,10 +41,6 @@ namespace erp_ecommerce.Entities
                     .IsRequired()
                     .HasColumnName("BrandName")
                     .HasMaxLength(50);
-
-                entity.Property(e => e.Image)
-                    .IsRequired()
-                    .HasMaxLength(500);
             });
 
             modelBuilder.Entity<Category>(entity =>
@@ -57,10 +53,6 @@ namespace erp_ecommerce.Entities
                     .IsRequired()
                     .HasColumnName("CategoryName")
                     .HasMaxLength(50);
-
-                entity.Property(e => e.Image)
-                   .IsRequired()
-                   .HasMaxLength(500);
             });
 
             modelBuilder.Entity<Color>(entity =>
