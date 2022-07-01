@@ -84,13 +84,15 @@ const TableWrapper = ({ data, type }: TableWrapperProps) => {
   };
 
   return (
-    <Table striped bordered hover>
-      <tbody>{renderTable()}</tbody>
+    <>
+      <Table striped bordered hover>
+        <tbody>{renderTable()}</tbody>
+        {currentItem && (
+          <ModalWrapper data={currentItem} type={type} isUpdate={isUpdate} />
+        )}
+      </Table>
       <button onClick={() => handleAddItem()}>Add new item</button>
-      {currentItem && (
-        <ModalWrapper data={currentItem} type={type} isUpdate={isUpdate} />
-      )}
-    </Table>
+    </>
   );
 };
 

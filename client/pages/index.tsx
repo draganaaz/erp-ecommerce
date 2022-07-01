@@ -14,11 +14,7 @@ const Home: NextPage = () => {
     getAllProducts().then((res) => setProducts(res));
   }, []);
 
-  return (
-    <div style={{ backgroundColor: "beige" }}>
-      {products && <Grid />}
-    </div>
-  );
+  return <div style={{ backgroundColor: "beige" }}>{products && <Grid />}</div>;
 };
 
 export default Home;

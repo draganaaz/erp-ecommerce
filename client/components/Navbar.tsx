@@ -78,7 +78,7 @@ const NavbarComponent = () => {
             )}
           </Nav>
           <SearchBar />
-          <BasketIcon onClick={() => redirect("/cart")} isInNavbar={true} />
+          <BasketIcon onClick={() => redirect("cart")} isInNavbar={true} />
           {userName}
           <UserIcon onClick={handleUserIconClick} />
         </Navbar.Collapse>

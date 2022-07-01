@@ -37,67 +37,47 @@ const CartItem = ({ cartItem }: CartItemProps) => {
   };
 
   return (
-    <>
-      <div id="cart-product-item-list" className={"cart list-item"}>
-        <div className="cart-item-img">
+    <tr>
+      <th scope="row" className="border-0">
+        <div className="p-2">
           <img
-            id="cart-product-image"
             src={cartItem.product?.image}
             alt={cartItem.product?.name}
+            width="70"
+            className="img-fluid rounded shadow-sm"
           />
+          <div className="ms-3 d-inline-block align-middle">
+            <h5 className="mb-0">
+              <a href="#" className="text-dark d-inline-block align-middle">
+                {cartItem.product?.name}
+              </a>
+            </h5>
+          </div>
         </div>
-        <div className="cart__text">
-          <p id="cart-product-title" className="title">
-            {cartItem.product?.name}
-          </p>
-          <p
-            id="remove-quantity"
-            className="btn--remove-btn"
-            onClick={handleRemoveClick}
-          >
-            remove
-          </p>
+      </th>
+      <td className="border-0 align-middle">
+        <strong>{cartItem.product.price}</strong>
+      </td>
+      <td className="d-flex border-0 align-items-center py-3">
+        {/* On '-' click, decrease quantity */}
+        <div id="minus-quantity" onClick={() => updateQuantity(-1)}>
+          <button className="btn">-</button>
         </div>
+        <strong>{quantity}</strong>
+        {/* On '+' click, increase quantity */}
+        <div id="plus-quantity" onClick={() => updateQuantity(1)}>
+          <button className="btn">+</button>
+        </div>
+      </td>
 
-        <div id="modifyQuantity" className="btn-wrapper">
-          <div className="btn-wrapper__inner">
-            {/* On '-' click, decrease quantity */}
-            <div
-              id="minus-quantity"
-              className="button-action"
-              onClick={() => updateQuantity(-1)}
-            >
-              <button className="btn"></button>
-            </div>
-          </div>
-          <label id="quantity-number">
-            <input
-              type="number"
-              max={99}
-              min={0}
-              className="cart__quantity"
-              value={quantity}
-              disabled
-              onFocus={handleQuantityInput}
-            />
-          </label>
-          <div className="btn-wrapper__inner">
-            {/* On '+' click, increase quantity */}
-            <div
-              id="plus-quantity"
-              className="button-action"
-              onClick={() => updateQuantity(1)}
-            >
-              <button className="btn"></button>
-            </div>
-          </div>
-        </div>
-        <Price
-          price={cartItem.product.price}
-          discount={cartItem.product.discount}
-        />
-      </div>
-    </>
+      <td
+        className="border-0 align-middle"
+        id="remove-quantity"
+        onClick={handleRemoveClick}
+      >
+        <strong>X</strong>
+      </td>
+    </tr>
   );
 };
 

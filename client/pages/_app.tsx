@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { RecoilRoot } from "recoil";
 import { SSRProvider } from "react-bootstrap";
 import NavbarComponent from "../components/Navbar";
-import '../auth/interceptor'
+import "../auth/interceptor";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

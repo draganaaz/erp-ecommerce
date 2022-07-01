@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import getAllBrands from "../services/getAllBrands";
 import getAllCategories from "../services/getAllCategories";
 import getAllProducts from "../services/getAllProducts";
-import TableWrapper from "./Table";
+import dynamic from "next/dynamic";
+const TableWrapper = dynamic(() => import("./Table"), { ssr: false }); //<- set SSr to false
 
 const TabsWrapper = () => {
   const tabs = ["Categories", "Brands", "Products"];
