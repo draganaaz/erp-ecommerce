@@ -4,7 +4,7 @@ const getAllProducts = async () => {
     const productsUrl = `${process.env.NEXT_PUBLIC_API_URL}/product`;
 
     const products = await axiosInstance.get(productsUrl)
-        .then(res => res.data)
+        .then(res => res.data.data)
         .catch((err: Error) => {
             throw new Error('An error occured in getAllProducts method.', err);
         });

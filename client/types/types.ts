@@ -57,3 +57,11 @@ export const sortOrder = [
     { discount: 'Lowest discount first' },
     { discount_desc: 'Highest discount first' }
 ]
+
+export interface IPaginatedResponse {
+    data: IProduct[],
+    pageNumber: number,
+    pageSize: number,
+    totalPages: number,
+    totalRecords: number
+}

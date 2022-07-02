@@ -1,6 +1,6 @@
 
 import { atom } from "recoil";
-import { IBrand, ICart, ICategory, IProduct } from "../types/types";
+import { IBrand, ICart, ICategory, IPaginatedResponse, IProduct } from "../types/types";
 
 // Key = unique ID (with respect to other atoms/selectors)
 // Default = default value (aka initial value)
@@ -8,6 +8,11 @@ import { IBrand, ICart, ICategory, IProduct } from "../types/types";
 export const productsState = atom({
     key: 'productsState',
     default: [] as IProduct[]
+})
+
+export const paginatedProductsState = atom({
+    key: 'paginatedProductsState',
+    default: {} as IPaginatedResponse
 })
 
 export const brandsState = atom({

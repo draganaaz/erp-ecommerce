@@ -1,4 +1,5 @@
 ﻿using erp_ecommerce.Entities;
+using erp_ecommerce.Filters;
 using erp_ecommerce.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -23,36 +24,43 @@ namespace erp_ecommerce.Data
         }
 
 #nullable enable
-        public IEnumerable<Product> GetAllProducts(string? query, int? categoryID, int? brandID,
+        public PagedResponse<List<Product>> GetAllProducts(string? query, int? categoryID, int? brandID,
             string? productType, int? colorID, int? sizeID, int? minPrice, int? maxPrice, 
             string? sortOrder, int pageNumber, int pageSize)
         {
-            var pgNumber = pageNumber < 1 ? 1 : pageNumber;
-            var pgSize = pageSize > 10 ? 10 : pageSize;
+            var validFilter = new PaginationFilter(pageNumber, pageSize);
+            int totalRecords = context.Product.Count();
+            int totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
 
             // Pagination and including product sizes and colors
-            var product = context.Product
-                .Skip((pgNumber - 1) * pgSize)
-                .Take(pgSize)
+            var products = context.Product
+                .Skip((validFilter.PageNumber- 1) * validFilter.PageSize)
+                .Take(validFilter.PageSize)
                 .Include(x => x.ProductColors).ThenInclude(color => color.Color)
                 .Include(x => x.ProductSizes).ThenInclude(size => size.Size).ToList();
 
 
             // Search bar, case insensitive filtering
             if (!String.IsNullOrEmpty(query))
-                return product.Where(x => x.Name.ToLower().Contains(query.ToLower()) 
-                    || x.Description.ToLower().Contains(query.ToLower()));
+                return new PagedResponse<List<Product>>(products.Where(x => x.Name.ToLower().Contains(query.ToLower())
+                    || x.Description.ToLower().Contains(query.ToLower())).ToList()
+                   , validFilter.PageNumber, validFilter.PageSize, totalRecords, totalPages);
 
             // Sorting
             if (!String.IsNullOrEmpty(sortOrder))
             {
                 return sortOrder switch
                 {
-                    "availability" => product.OrderBy(x => x.IsAvailable),
-                    "price" => product.OrderBy(x => x.Price),
-                    "price_desc" => product.OrderByDescending(x => x.Price),
-                    "dicount_desc" => product.OrderByDescending(x => x.Discount),
-                    _ => product.OrderBy(x => x.Discount),
+                    "availability" => new PagedResponse<List<Product>>(products.OrderBy(x => x.IsAvailable).ToList()
+                   , validFilter.PageNumber, validFilter.PageSize, totalRecords, totalPages),
+                    "price" => new PagedResponse<List<Product>>(products.OrderBy(x => x.Price).ToList()
+                   , validFilter.PageNumber, validFilter.PageSize, totalRecords, totalPages),
+                    "price_desc" => new PagedResponse<List<Product>>(products.OrderByDescending(x => x.Price).ToList()
+                   , validFilter.PageNumber, validFilter.PageSize, totalRecords, totalPages),
+                    "dicount_desc" => new PagedResponse<List<Product>>(products.OrderByDescending(x => x.Discount).ToList()
+                   , validFilter.PageNumber, validFilter.PageSize, totalRecords, totalPages),
+                   _ => new PagedResponse<List<Product>>(products.OrderBy(x => x.Discount).ToList()
+                   , validFilter.PageNumber, validFilter.PageSize, totalRecords, totalPages)
                 };
             }
 
@@ -60,36 +68,43 @@ namespace erp_ecommerce.Data
             #region Filters
             if (categoryID != null)
             {
-                return product.Where(x => x.CategoryId == categoryID).ToList();
+                return new PagedResponse<List<Product>>(products.Where(x => x.CategoryId == categoryID).ToList()
+                   , validFilter.PageNumber, validFilter.PageSize, totalRecords, totalPages);
             }
 
             if (brandID != null)
             {
-                return product.Where(x => x.BrandId == brandID).ToList();
+                return new PagedResponse<List<Product>>(products.Where(x => x.BrandId == brandID).ToList()
+                   , validFilter.PageNumber, validFilter.PageSize, totalRecords, totalPages);
             }
 
             if (!String.IsNullOrEmpty(productType))
             {
-                return product.Where(x => x.ProductType.ToLower().Equals(productType.ToLower())).ToList();
+                return new PagedResponse<List<Product>>(products.Where(x => x.ProductType.ToLower().Equals(productType.ToLower())).ToList()
+                    , validFilter.PageNumber, validFilter.PageSize, totalRecords, totalPages);
             }
 
             if (minPrice != null && maxPrice != null)
             {
-                return product.Where(x => (int?)x.Price > minPrice && (int?)x.Price < maxPrice).ToList();
+                return new PagedResponse<List<Product>>(products.Where(x => (int?)x.Price > minPrice && (int?)x.Price < maxPrice).ToList()
+                    , validFilter.PageNumber, validFilter.PageSize, totalRecords, totalPages);
             }
 
             if (colorID != null)
             {
-                return product.Where(x => x.ProductColors.Any(y => y.ColorId == colorID)).ToList();
+                return new PagedResponse<List<Product>>(products.Where(x => x.ProductColors.Any(y => y.ColorId == colorID)).ToList()
+                    , validFilter.PageNumber, validFilter.PageSize, totalRecords, totalPages);
             }
 
             if (sizeID != null)
             {
-                return product.Where(x => x.ProductSizes.Any(y => y.SizeId == sizeID)).ToList();
+                return new PagedResponse<List<Product>>(products.Where(x => x.ProductSizes.Any(y => y.SizeId == sizeID)).ToList()
+                    , validFilter.PageNumber, validFilter.PageSize, totalRecords, totalPages);
             }
 
             #endregion
-            return product.ToList();
+
+            return new PagedResponse<List<Product>>(products, validFilter.PageNumber, validFilter.PageSize, totalRecords, totalPages);
         }
 
         public Product GetProductById(int id)
