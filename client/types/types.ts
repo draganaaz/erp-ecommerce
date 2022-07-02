@@ -39,9 +39,9 @@ export interface ICart {
 }
 
 export const productTypes = {
-    man: 'musko',
-    woman: 'zensko',
-    kids: 'decije'
+    man: 'man',
+    woman: 'woman',
+    kids: 'kids'
 }
 
 export const tableTypes = {
@@ -49,3 +49,11 @@ export const tableTypes = {
     brands: "Brands",
     categories: "Categories",
 }
+
+export const sortOrder = [
+    { availability: 'In stock first' },
+    { price: 'Lowest price first' },
+    { price_desc: 'Highest price first' },
+    { discount: 'Lowest discount first' },
+    { discount_desc: 'Highest discount first' }
+]

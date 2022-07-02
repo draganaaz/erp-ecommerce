@@ -19,7 +19,10 @@ const CardWrapper = (data: any) => {
 
   return (
     <Card style={{ width: "18rem" }}>
-      <Card.Img variant="top" src={product.image} alt={"product image"} />
+      {/* don't show images for brands and categories */}
+      {!!product.description && (
+        <Card.Img variant="top" src={product.image} alt={"product image"} />
+      )}
       <Card.Body>
         <Card.Title>
           {product.name || product.categoryName || product.brandName}
@@ -33,7 +36,7 @@ const CardWrapper = (data: any) => {
           margin: "0 -40px",
         }}
       >
-        <Price price={product.price} />
+        <Price price={product.price} discount={product.discount} />
         {/* Display cart icon only for products, not brands and categories, same goes for OOS button */}
         {product.description ? (
           product.isAvailable ? (

@@ -7,9 +7,9 @@ interface PriceProps {
 
 const Price = ({ price, discount }: PriceProps) => {
   return (
-    <div className="product-price-wrapper">
-      <p className="product--price">{price}</p>
-      {discount && <p className="price--discount">{discount}</p>}
+    <div className="d-flex align-items-center">
+      <p className="product--price px-3">{price}</p>
+      {!!discount && discount !== 0 && <p>{discount}%</p>}
     </div>
   );
 };

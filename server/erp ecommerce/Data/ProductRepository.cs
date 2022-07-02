@@ -48,10 +48,11 @@ namespace erp_ecommerce.Data
             {
                 return sortOrder switch
                 {
-                    "name_desc" => product.OrderByDescending(x => x.Name),
+                    "availability" => product.OrderBy(x => x.IsAvailable),
                     "price" => product.OrderBy(x => x.Price),
                     "price_desc" => product.OrderByDescending(x => x.Price),
-                    _ => product.OrderBy(x => x.Name),
+                    "dicount_desc" => product.OrderByDescending(x => x.Discount),
+                    _ => product.OrderBy(x => x.Discount),
                 };
             }
 

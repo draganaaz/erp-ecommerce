@@ -1,22 +1,35 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
 import GridHelper from "./GridHelper";
 import CardWrapper from "./Card";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { productsState } from "../atoms/atoms";
+import { sortOrder } from "../types/types";
+import Select from "./Select";
+import sortProducts from "../services/sortProducts";
 
 const Grid = () => {
-  const products = useRecoilValue(productsState);
+  const [sortBy, setSortBy] = useState("");
+  const [products, setProducts] = useRecoilState(productsState);
+
+  // Sort products by passed sort order
+  useEffect(() => {
+    sortProducts(sortBy).then((res) => setProducts(res));
+  }, [sortBy]);
 
   return (
-    <GridHelper key={Math.random()} colCount={3} md={4}>
-      {products.length > 0 ? (
-        products.map((product, index) => (
-          <CardWrapper key={index} id={product.id} product={product} />
-        ))
-      ) : (
-        <p>No search results for qiven query.</p>
-      )}
-    </GridHelper>
+    <>
+      <Select items={sortOrder} setSelected={setSortBy} />
+      <GridHelper key={Math.random()} colCount={3} md={4}>
+        {products.length > 0 ? (
+          products.map((product, index) => (
+            <CardWrapper key={index} id={product.id} product={product} />
+          ))
+        ) : (
+          <p>No search results for qiven query.</p>
+        )}
+      </GridHelper>
+    </>
   );
 };
 
