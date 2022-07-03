@@ -39,7 +39,7 @@ const PaymentForm = () => {
     if (!error) {
       // try {
       const { id } = paymentMethod;
-      // TODO: pass data
+      // TODO: pass data (line items? )
       handlePayment({
         // amount: selectedProduct.price.toString().replace(".", "")
         amount: 100,

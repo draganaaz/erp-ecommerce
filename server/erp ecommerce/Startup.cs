@@ -1,5 +1,6 @@
 using erp_ecommerce.Data;
 using erp_ecommerce.Entities;
+using erp_ecommerce.Models;
 using JWTAuthentication.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Stripe;
 using System.Text;
 
 namespace erp_ecommerce
@@ -80,6 +82,8 @@ namespace erp_ecommerce
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            StripeConfiguration.ApiKey = "pk_test_51LHLrQDQEk6A6AaLwf2QzUxHBijDo7pDX04zr6an1zA9F2stu3dowVWXoUB5dHOcI1xmt5bk828YGXIhiOn3CdVL00Pyh23SHI";
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

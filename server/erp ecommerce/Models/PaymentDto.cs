@@ -2,7 +2,8 @@
 {
     public class PaymentDto
     {
-        public int PaymentId { get; set; }
-        public string Name { get; set; }
+        public string tokenId { get; set; }
+        public string productName { get; set; }
+        public int amount { get; set; }
     }
 }
