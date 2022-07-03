@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
 namespace erp_ecommerce
@@ -43,6 +44,8 @@ namespace erp_ecommerce
             // Setup context for model authorization
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("erp")));
 
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
             // Setup identity package
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -59,6 +62,8 @@ namespace erp_ecommerce
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
+                    NameClaimType = "name",
+                    RoleClaimType = "role",
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidAudience = Configuration["JWT:ValidAudience"],
