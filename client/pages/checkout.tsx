@@ -1,5 +1,7 @@
 import React, { SyntheticEvent, useState } from "react";
 import { Button } from "react-bootstrap";
+import { loadStripe } from "@stripe/stripe-js";
+import { useRouter } from "next/router";
 
 const Checkout = () => {
   const [fullName, setFullName] = useState("");
@@ -10,21 +12,17 @@ const Checkout = () => {
   const [cardNumber, setCardNumber] = useState("");
   const [cardExpiration, setCardExpiration] = useState("");
   const [cardCvv, setCardCvv] = useState("");
+  const router = useRouter();
 
   const isFormValid =
-    fullName !== "" &&
-    email !== "" &&
-    address !== "" &&
-    country !== "" &&
-    cardFullName !== "" &&
-    cardNumber !== "" &&
-    cardExpiration !== "" &&
-    cardCvv !== "";
+    fullName !== "" && email !== "" && address !== "" && country !== "";
+  // cardFullName !== "" &&
+  // cardNumber !== "" &&
+  // cardExpiration !== "" &&
+  // cardCvv !== "";
 
-  const handlePayment = (e: SyntheticEvent) => {
-    e.preventDefault();
-
-    isFormValid && console.log("heyyy form valid ");
+  const handlePayment = () => {
+    router.push("/payment");
   };
 
   return (
@@ -89,7 +87,7 @@ const Checkout = () => {
             <div className="invalid-feedback">Please enter country.</div>
           </div>
           <hr className="mb-6" />
-          <h4 className="mb-3">Payment</h4>
+          {/* <h4 className="mb-3">Payment</h4>
           <div className="row">
             <div className="col-md-6 mb-3">
               <label>Name on card</label>
@@ -150,10 +148,10 @@ const Checkout = () => {
               />
               <div className="invalid-feedback">Security code required</div>
             </div>
-          </div>
+          </div> */}
           <Button
             variant="dark"
-            onClick={(e) => handlePayment(e) as any}
+            onClick={handlePayment}
             disabled={!isFormValid}
           >
             Proceed to payment

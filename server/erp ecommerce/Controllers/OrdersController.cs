@@ -43,7 +43,6 @@ namespace erp_ecommerce.Controllers
         }
 
         [Authorize(Roles = UserRoles.User)]
-        [Authorize]
         [HttpPost]
         public IActionResult CreateOrder(OrderDto orderDto)
         {

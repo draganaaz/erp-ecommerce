@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
+import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import { cartState } from "../atoms/atoms";
 import { cartTotal } from "../helpers/totalCartPrice";
@@ -10,6 +11,11 @@ import CartPreview from "./CartPreview";
 const CartList = () => {
   const cartItems = useRecoilValue(cartState);
   const totalPrice = useRecoilValue(cartTotal);
+  const router = useRouter();
+
+  const handleCheckoutClick = () => {
+    router.push("/checkout");
+  };
 
   return (
     <>
@@ -50,7 +56,10 @@ const CartList = () => {
           <strong className="text-muted">Total</strong>
           <h5 className="fw-bold">{totalPrice}</h5>
         </div>
-        <a className="btn btn-dark rounded-pill py-2 d-md-block">
+        <a
+          className="btn btn-dark rounded-pill py-2 d-md-block"
+          onClick={handleCheckoutClick}
+        >
           Procceed to checkout
         </a>
       </div>

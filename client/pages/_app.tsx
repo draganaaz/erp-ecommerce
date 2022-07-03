@@ -5,6 +5,7 @@ import { RecoilRoot } from "recoil";
 import { SSRProvider } from "react-bootstrap";
 import NavbarComponent from "../components/Navbar";
 import "../auth/interceptor";
+import "@stripe/stripe-js";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { Card } from "react-bootstrap";
-import RegisterForm from "../components/RegisterForm";
+import RegisterForm from "../components/Forms/RegisterForm";
 
 const Register = () => {
   const router = useRouter();
