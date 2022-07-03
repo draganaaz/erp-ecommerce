@@ -42,9 +42,9 @@ namespace erp_ecommerce.Controllers
 
         [Authorize(Roles = UserRoles.Admin)]
         [HttpPost]
-        public IActionResult CreateCategory(Category category)
+        public IActionResult CreateCategory(CategoryDto categoryDto)
         {
-            categoryRepository.AddCategory(category);
+            categoryRepository.AddCategory(categoryDto);
 
             try
             {

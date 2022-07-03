@@ -15,9 +15,12 @@ namespace erp_ecommerce.Data
             this.context = context;
         }
 
-        public void AddBrand(Brand brandDto)
+        public void AddBrand(BrandDto brandDto)
         {
-            Brand brand = new Brand();
+            Brand brand = new Brand
+            {
+                BrandName = brandDto.BrandName
+            };
             context.Add(brand);
         }
 

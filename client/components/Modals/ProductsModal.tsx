@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useRecoilState } from "recoil";
-import { showModalState } from "../atoms/atoms";
-import addProduct from "../services/addProduct";
-import updateProduct from "../services/updateProduct";
+import { showModalState } from "../../atoms/atoms";
+import addProduct from "../../services/addProduct";
+import updateProduct from "../../services/updateProduct";
 
 interface ProductModalProps {
   data: any;

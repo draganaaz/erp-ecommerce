@@ -15,18 +15,17 @@ namespace erp_ecommerce.Data
             this.context = context;
         }
 
-        public void AddOrder(Orders order)
+        public void AddOrder(OrderDto orderDto)
         {
             Orders orderToSave = new Orders
             {
-                Name = order.Name,
-                Surname = order.Surname,
-                Address = order.Address,
-                City = order.City,
-                Country = order.Country,
+                Name = orderDto.Name,
+                Surname = orderDto.Surname,
+                Address = orderDto.Address,
+                City = orderDto.City,
+                Country = orderDto.Country,
                 DateCreated = DateTime.Now,
-                IsPaymentDone = order.IsPaymentDone,
-                TotalPrice = order.TotalPrice
+                IsPaymentDone = false
             };
             context.Add(orderToSave);
         }

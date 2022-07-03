@@ -78,11 +78,11 @@ namespace erp_ecommerce.Controllers
 
         [Authorize(Roles = UserRoles.Admin)]
         [HttpPost]
-        public IActionResult AddProduct(Product product)
+        public IActionResult AddProduct(ProductDto productDto)
         {
-            ValidateProduct(product);
+            ValidateProduct(productDto);
 
-            productRepository.AddProduct(product);
+            productRepository.AddProduct(productDto);
 
             try
             {

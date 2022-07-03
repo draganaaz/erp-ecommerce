@@ -6,7 +6,7 @@ import deleteBrand from "../services/deleteBrand";
 import deleteCategory from "../services/deleteCategory";
 import deleteProduct from "../services/deleteProduct";
 import { IBrand, ICategory, IProduct, tableTypes } from "../types/types";
-import ModalWrapper from "./Modal";
+import ModalWrapper from "./Modals/Modal";
 
 interface TableWrapperProps {
   data: any;

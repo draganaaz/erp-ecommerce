@@ -17,9 +17,20 @@ namespace erp_ecommerce.Data
             this.context = context;
         }
 
-        public void AddProduct(Product productDto)
+        public void AddProduct(ProductDto productDto)
         {
-            Product product = new Product();
+            Product product = new Product
+            {
+                Name = productDto.Name,
+                Description = productDto.Description,
+                Price = productDto.Price,
+                Discount = productDto.Discount,
+                BrandId = productDto.BrandId,
+                CategoryId = productDto.CategoryId,
+                IsAvailable = productDto.IsAvailable,
+                Image = productDto.Image,
+                ProductType = productDto.ProductType
+            };
             context.Add(product);
         }
 

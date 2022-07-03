@@ -42,11 +42,12 @@ namespace erp_ecommerce.Controllers
             return Ok(order);
         }
 
+        [Authorize(Roles = UserRoles.User)]
         [Authorize]
         [HttpPost]
-        public IActionResult CreateOrder(Orders order)
+        public IActionResult CreateOrder(OrderDto orderDto)
         {
-            orderRepository.AddOrder(order);
+            orderRepository.AddOrder(orderDto);
 
             try
             {

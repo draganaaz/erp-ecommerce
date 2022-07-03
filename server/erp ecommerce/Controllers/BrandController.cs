@@ -42,9 +42,9 @@ namespace erp_ecommerce.Controllers
 
         [Authorize(Roles = UserRoles.Admin)]
         [HttpPost]
-        public IActionResult CreateBrand(Brand brand)
+        public IActionResult CreateBrand(BrandDto brandDto)
         {
-            brandRepository.AddBrand(brand);
+            brandRepository.AddBrand(brandDto);
 
             try
             {

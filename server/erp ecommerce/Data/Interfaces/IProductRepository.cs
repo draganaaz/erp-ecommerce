@@ -13,7 +13,7 @@ namespace erp_ecommerce.Data
 
         public Product GetProductById(int id);
 
-        public void AddProduct(Product productDto);
+        public void AddProduct(ProductDto productDto);
 
         public void UpdateProduct(Product product, ProductDto productDto);
 

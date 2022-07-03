@@ -13,5 +13,6 @@
         public int? CategoryId { get; set; }
         public int? BrandId { get; set; }
         public string ProductType { get; set; }
+        public string Image { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace erp_ecommerce.Data
 
         public Category GetCategoryById(int id);
 
-        public void AddCategory(Category category);
+        public void AddCategory(CategoryDto categoryDto);
 
         public void UpdateCategory(Category category, CategoryDto categoryDto);
 

@@ -10,7 +10,7 @@ namespace erp_ecommerce.Data
 
         public Orders GetOrderById(int id);
 
-        public void AddOrder(Orders orderDto);
+        public void AddOrder(OrderDto orderDto);
 
         public void UpdateOrder(Orders order, OrderDto orderDto);
 

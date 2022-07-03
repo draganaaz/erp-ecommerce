@@ -15,9 +15,12 @@ namespace erp_ecommerce.Data
             this.context = context;
         }
 
-        public void AddCategory(Category categoryDto)
+        public void AddCategory(CategoryDto categoryDto)
         {
-            Category category = new Category();
+            Category category = new Category
+            {
+                CategoryName = categoryDto.CategoryName
+            };
             context.Add(category);
         }
 

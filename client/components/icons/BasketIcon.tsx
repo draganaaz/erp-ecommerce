@@ -10,14 +10,14 @@ interface BasketIconProps {
 
 const BasketIcon = ({ onClick, isInNavbar = false }: BasketIconProps) => {
   const cart = useRecoilValue(cartState);
-  const totalCount = cart
-    ?.map((item: ICart) => item.quantity)
-    .reduce((prev, curr) => prev + curr, 0);
+  // const totalCount = cart
+  //   ?.map((item: ICart) => item.quantity)
+  //   .reduce((prev, curr) => prev + curr, 0);
 
   return (
     <a onClick={onClick}>
       <span className="basket-icon"></span>
-      {isInNavbar && <span className="cart-count">{totalCount}</span>}
+      {/* {isInNavbar && <span className="cart-count">{totalCount}</span>} */}
     </a>
   );
 };

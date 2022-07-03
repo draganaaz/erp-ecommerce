@@ -10,7 +10,7 @@ namespace erp_ecommerce.Data
 
         public Brand GetBrandById(int id);
 
-        public void AddBrand(Brand brand);
+        public void AddBrand(BrandDto brandDto);
 
         public void UpdateBrand(Brand brand, BrandDto brandDto);
 
