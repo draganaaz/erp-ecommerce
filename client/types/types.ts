@@ -65,3 +65,8 @@ export interface IPaginatedResponse {
     totalPages: number,
     totalRecords: number
 }
+
+export const Roles = {
+    Admin: 'Admin',
+    User: 'User '
+}

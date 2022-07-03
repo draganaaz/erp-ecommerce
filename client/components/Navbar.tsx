@@ -1,8 +1,13 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
-import { getUserNameFromJwt, removeUser } from "../services/tokenService";
+import {
+  getRoleFromJwt,
+  getUserNameFromJwt,
+  removeUser,
+} from "../services/tokenService";
 import { isLoggedIn } from "../services/userService";
+import { Roles } from "../types/types";
 import BasketIcon from "./icons/BasketIcon";
 import UserIcon from "./icons/UserIcon";
 import SearchBar from "./SearchBar";
@@ -18,10 +23,8 @@ const NavbarItems = {
 
 const NavbarComponent = () => {
   const [userName, setUserName] = useState("");
+  const [role, setRole] = useState("");
   const router = useRouter();
-
-  // TODO: fetch this from token
-  const isAdmin = true;
 
   const redirect = (param: string) => {
     router.push(`/${param.toString().toLowerCase()}`);
@@ -39,10 +42,13 @@ const NavbarComponent = () => {
 
   // Fetching username from localStorage in useEffect where window is defined
   useEffect(() => {
-    isLoggedIn()
-      ? setUserName(`Welcome, ${getUserNameFromJwt()}`)
-      : setUserName("");
-  }, []);
+    if (isLoggedIn()) {
+      setUserName(`Welcome, ${getUserNameFromJwt()}`);
+      setRole(getRoleFromJwt());
+    } else {
+      setUserName("");
+    }
+  }, [isLoggedIn()]);
 
   return (
     <Navbar bg="light" expand="lg">
@@ -71,7 +77,7 @@ const NavbarComponent = () => {
               {NavbarItems.Kids}
             </Nav.Link>
             {/* Display admin panel if admin is logged in */}
-            {isAdmin && (
+            {role === Roles.Admin && (
               <Nav.Link onClick={() => redirect(NavbarItems.AdminPanel)}>
                 {NavbarItems.AdminPanel}
               </Nav.Link>
