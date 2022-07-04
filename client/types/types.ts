@@ -7,18 +7,18 @@ export interface IProduct {
     discount: number
     productType: number
     image: string
+    brandId?: number
+    categoryId?: number
 }
 
 export interface IBrand {
     brandId: string
     brandName: string
-    image: string
 }
 
 export interface ICategory {
     categoryId: string
     categoryName: string
-    image: string
 }
 
 export interface ILogin {

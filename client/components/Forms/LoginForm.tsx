@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import React, { SyntheticEvent, useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { axiosInstance } from "../helpers/axiosInstances";
-import { setUser } from "../services/tokenService";
-import ToastMessage from "./Toast";
+import { axiosInstance } from "../../helpers/axiosInstances";
+import { setUser } from "../../services/tokenService";
+import ToastMessage from "../Toast";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");

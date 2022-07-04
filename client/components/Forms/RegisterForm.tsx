@@ -2,9 +2,9 @@
 import { useRouter } from "next/router";
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { axiosInstance } from "../helpers/axiosInstances";
-import { messages } from "../messages/messages";
-import ToastMessage from "./Toast";
+import { axiosInstance } from "../../helpers/axiosInstances";
+import { messages } from "../../messages/messages";
+import ToastMessage from "../Toast";
 
 const RegisterForm = () => {
   const [email, setEmail] = useState("");

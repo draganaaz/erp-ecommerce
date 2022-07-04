@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { Card } from "react-bootstrap";
-import LoginForm from "../components/LoginForm";
+import LoginForm from "../components/Forms/LoginForm";
 
 const Login = () => {
   const router = useRouter();
@@ -9,7 +9,7 @@ const Login = () => {
   const redirect = () => {
     router.push("/register");
   };
-  
+
   return (
     <Card style={{ width: "50%", padding: "4%", margin: "40px auto" }}>
       <LoginForm />
