@@ -63,12 +63,12 @@ namespace erp_ecommerce.Controllers
         // Both method and parameter can be different type through runtime 
         private dynamic ValidateProduct(dynamic product)
         {
-            if (!brandRepository.Exists((int)product.BrandId))
+            if (!brandRepository.Exists(product.BrandId))
             {
                 return NotFound("There is no Brand with given BrandId");
             }
 
-            if (!categoryRepository.Exists((int)product.CategoryId))
+            if (!categoryRepository.Exists(product.CategoryId))
             {
                 return NotFound("There is no Category with given CategoryId");
             }

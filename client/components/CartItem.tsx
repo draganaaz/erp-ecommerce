@@ -51,7 +51,7 @@ const CartItem = ({ cartItem }: CartItemProps) => {
         </div>
       </th>
       <td className="border-0 align-middle">
-        <strong>{cartItem.product.price}</strong>
+        <strong>{cartItem.product.price * quantity}</strong>
       </td>
       <td className="d-flex border-0 align-items-center py-3">
         {/* On '-' click, decrease quantity */}

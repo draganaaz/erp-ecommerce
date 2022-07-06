@@ -12,7 +12,7 @@ axiosInstance.interceptors.request.use((config) => {
     }
     else {
         // Add auth header with jwt if account is logged in 
-        !isLoggedIn() && (axiosInstance.defaults.headers.common = { 'Authorization': `Bearer ${token}` })
+        isLoggedIn() && (axiosInstance.defaults.headers.common = { 'Authorization': `Bearer ${token}` })
         return config;
     }
 }, (error) => {

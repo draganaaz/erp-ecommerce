@@ -19,15 +19,17 @@ const Grid = () => {
   useEffect(() => {
     sortBy !== "" &&
       getPaginatedProducts({
-        pageNumber: paginatedProducts.pageNumber,
-        pageSize: paginatedProducts.pageNumber,
         sortOrder: sortBy,
       }).then((res) => setPaginatedProducts(res));
   }, [sortBy]);
 
   return (
     <>
-      <Select items={sortOrder} setSelected={setSortBy} />
+      <Select
+        items={sortOrder}
+        setSelected={setSortBy}
+        defaultValue={"Sort by"}
+      />
       <GridHelper key={Math.random()} colCount={3} md={4}>
         {paginatedProducts.data && paginatedProducts.data.length > 0 ? (
           paginatedProducts.data.map((product, index) => (

@@ -3,7 +3,8 @@ import getAllBrands from "../services/getAllBrands";
 import getAllCategories from "../services/getAllCategories";
 import getAllProducts from "../services/getAllProducts";
 import dynamic from "next/dynamic";
-const TableWrapper = dynamic(() => import("./Table"), { ssr: false }); //<- set SSr to false
+
+const TableWrapper = dynamic(() => import("./Table"), { ssr: false }); // prevent DOM mismatch on hydrate
 
 const TabsWrapper = () => {
   const tabs = ["Categories", "Brands", "Products"];

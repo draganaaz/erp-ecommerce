@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
-import { useRecoilState } from "recoil";
-import { showModalState } from "../../atoms/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  brandsState,
+  categoriesState,
+  showModalState,
+} from "../../atoms/atoms";
 import addProduct from "../../services/addProduct";
 import updateProduct from "../../services/updateProduct";
+import { IBrand, ICategory, IProduct, sortOrder } from "../../types/types";
 
 interface ProductModalProps {
-  data: any;
+  data: IProduct;
   isUpdate: boolean;
 }
 
@@ -18,12 +23,26 @@ const ProductModal = ({ data, isUpdate }: ProductModalProps) => {
   const [isAvailable, setIsAvailable] = useState(false);
   const [image, setImage] = useState("");
   const [, setShow] = useRecoilState(showModalState);
+  const brands = useRecoilValue(brandsState);
+  const categories = useRecoilValue(categoriesState);
+  const [selectedBrandId, setSelectedBrandId] = useState(0);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(0);
 
   const handleClose = () => setShow(false);
 
   const handleSaveClick = () => {
     isUpdate
-      ? updateProduct()
+      ? updateProduct({
+          productId: data.productId,
+          name,
+          description,
+          image,
+          price: Number(price),
+          discount: Number(discount),
+          isAvailable,
+          brandId: selectedBrandId,
+          categoryId: selectedCategoryId,
+        }).then(() => handleClose())
       : addProduct({
           name,
           description,
@@ -31,7 +50,9 @@ const ProductModal = ({ data, isUpdate }: ProductModalProps) => {
           price: Number(price),
           discount: Number(discount),
           isAvailable,
-        });
+          brandId: selectedBrandId,
+          categoryId: selectedCategoryId,
+        }).then(() => handleClose());
   };
 
   return (
@@ -72,7 +93,7 @@ const ProductModal = ({ data, isUpdate }: ProductModalProps) => {
               type={"checkbox"}
               label={"Is Available"}
               id={"default-checkbox"}
-              checked={isUpdate ? data.isAvailable : false}
+              defaultChecked={isUpdate ? data.isAvailable : false}
               onChange={() => setIsAvailable(!isAvailable)}
             />
             <Form.Label>Product image</Form.Label>
@@ -82,6 +103,28 @@ const ProductModal = ({ data, isUpdate }: ProductModalProps) => {
               onChange={(e) => setImage(e.target.value)}
             />
           </Form.Group>
+          {/* Select brand */}
+          <Form.Select
+            onChange={(e: any) => setSelectedBrandId(e.target.value)}
+          >
+            <option value="">Select brand id</option>
+            {brands.map((brand: IBrand, index: number) => (
+              <option key={index} value={brand.brandId}>
+                {brand.brandName}
+              </option>
+            ))}
+          </Form.Select>
+          {/* Select category */}
+          <Form.Select
+            onChange={(e: any) => setSelectedCategoryId(e.target.value)}
+          >
+            <option value="">Select category id</option>
+            {categories.map((category: ICategory, index: number) => (
+              <option key={index} value={category.categoryId}>
+                {category.categoryName}
+              </option>
+            ))}
+          </Form.Select>
         </Form>
       </Modal.Body>
       <Modal.Footer>
