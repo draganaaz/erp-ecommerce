@@ -19,8 +19,6 @@ const Grid = () => {
   useEffect(() => {
     sortBy !== "" &&
       getPaginatedProducts({
-        pageNumber: paginatedProducts.pageNumber,
-        pageSize: paginatedProducts.pageNumber,
         sortOrder: sortBy,
       }).then((res) => setPaginatedProducts(res));
   }, [sortBy]);
