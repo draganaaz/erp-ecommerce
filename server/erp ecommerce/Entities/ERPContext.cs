@@ -96,10 +96,6 @@ namespace erp_ecommerce.Entities
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Surname)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
                 entity.Property(e => e.TotalPrice).HasColumnType("numeric(10, 2)");
             });
 

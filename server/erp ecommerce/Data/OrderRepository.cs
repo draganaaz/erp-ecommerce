@@ -20,10 +20,10 @@ namespace erp_ecommerce.Data
             Orders orderToSave = new Orders
             {
                 Name = orderDto.Name,
-                Surname = orderDto.Surname,
                 Address = orderDto.Address,
                 City = orderDto.City,
                 Country = orderDto.Country,
+                TotalPrice = orderDto.TotalPrice,
                 DateCreated = DateTime.Now,
                 IsPaymentDone = false
             };
@@ -43,7 +43,6 @@ namespace erp_ecommerce.Data
         public void UpdateOrder(Orders order, OrderDto orderDto)
         {
             order.Name = orderDto.Name;
-            order.Surname = orderDto.Surname;
             order.Address = orderDto.Address;
             order.City = orderDto.City;
             order.Country = orderDto.Country;

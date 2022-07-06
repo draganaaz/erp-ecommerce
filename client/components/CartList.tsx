@@ -3,13 +3,27 @@
 import { useRecoilValue } from "recoil";
 import { cartState } from "../atoms/atoms";
 import { cartTotal } from "../helpers/totalCartPrice";
-import { ICart, IProduct } from "../types/types";
+import addOrder from "../services/addOrder";
+import { getUserNameFromJwt } from "../services/tokenService";
+import { isLoggedIn } from "../services/userService";
+import { ICart } from "../types/types";
 import CartItem from "./CartItem";
-import CartPreview from "./CartPreview";
 
 const CartList = () => {
   const cartItems = useRecoilValue(cartState);
   const totalPrice = useRecoilValue(cartTotal);
+
+  const handleCheckoutClick = () => {
+    addOrder({
+      name: getUserNameFromJwt(),
+      address: "Addressssss",
+      city: "Cityyyy",
+      country: "Countryyyy",
+      // dateCreated: new Date().toISOString().slice(0, 19).replace("T", " "),
+      totalPrice: totalPrice,
+      isPaymentDone: false,
+    });
+  };
 
   return (
     <>
@@ -50,9 +64,18 @@ const CartList = () => {
           <strong className="text-muted">Total</strong>
           <h5 className="fw-bold">{totalPrice}</h5>
         </div>
-        <a className="btn btn-dark rounded-pill py-2 d-md-block">
-          Procceed to checkout
-        </a>
+        {isLoggedIn() ? (
+          <a
+            onClick={handleCheckoutClick}
+            className="btn btn-dark rounded-pill py-2 d-md-block"
+          >
+            Procceed to checkout
+          </a>
+        ) : (
+          <a className="btn btn-dark rounded-pill py-2 d-md-block">
+            Please login to proceed to checkout
+          </a>
+        )}
       </div>
     </>
   );

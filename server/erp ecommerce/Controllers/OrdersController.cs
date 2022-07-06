@@ -42,7 +42,6 @@ namespace erp_ecommerce.Controllers
             return Ok(order);
         }
 
-        [Authorize(Roles = UserRoles.User)]
         [Authorize]
         [HttpPost]
         public IActionResult CreateOrder(OrderDto orderDto)
@@ -56,7 +55,7 @@ namespace erp_ecommerce.Controllers
                     throw new Exception("Error has occured during the creation of Order.");
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error has occured. Check logs for details.");
             }
