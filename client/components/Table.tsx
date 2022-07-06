@@ -50,7 +50,6 @@ const TableWrapper = ({ data, type }: TableWrapperProps) => {
             <tr key={index}>
               <td>{item.brandId}</td>
               <td>{item.brandName}</td>
-              <td>{item.image}</td>
               <td onClick={() => handleUpdateItem(item)}>Update</td>
               <td onClick={() => handleDeleteItem(item)}>Delete</td>
             </tr>
@@ -60,7 +59,6 @@ const TableWrapper = ({ data, type }: TableWrapperProps) => {
             <tr key={index}>
               <td>{item.categoryId}</td>
               <td>{item.categoryName}</td>
-              <td>{item.image}</td>
               <td onClick={() => handleUpdateItem(item)}>Update</td>
               <td onClick={() => handleDeleteItem(item)}>Delete</td>
             </tr>

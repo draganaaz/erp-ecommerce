@@ -4,20 +4,25 @@ import { useRecoilState } from "recoil";
 import { showModalState } from "../../atoms/atoms";
 import addBrand from "../../services/addBrand";
 import updateBrand from "../../services/updateBrand";
+import { IBrand } from "../../types/types";
 
 interface BrandModalProps {
-  data: any;
+  data: IBrand;
   isUpdate: boolean;
 }
 
 const BrandModal = ({ data, isUpdate }: BrandModalProps) => {
   const [brandName, setBrandName] = useState("");
-  const [show, setShow] = useRecoilState(showModalState);
+  const [, setShow] = useRecoilState(showModalState);
 
   const handleClose = () => setShow(false);
 
   const handleSaveClick = () => {
-    isUpdate ? updateBrand() : addBrand({ brandName });
+    isUpdate
+      ? updateBrand({ brandId: data.brandId, brandName }).then(() =>
+          handleClose()
+        )
+      : addBrand({ brandName }).then(() => handleClose());
   };
 
   return (

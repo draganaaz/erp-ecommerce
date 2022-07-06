@@ -8,11 +8,10 @@ import {
 } from "../../atoms/atoms";
 import addProduct from "../../services/addProduct";
 import updateProduct from "../../services/updateProduct";
-import { IBrand, ICategory, sortOrder } from "../../types/types";
-import Select from "../Select";
+import { IBrand, ICategory, IProduct, sortOrder } from "../../types/types";
 
 interface ProductModalProps {
-  data: any;
+  data: IProduct;
   isUpdate: boolean;
 }
 
@@ -33,7 +32,17 @@ const ProductModal = ({ data, isUpdate }: ProductModalProps) => {
 
   const handleSaveClick = () => {
     isUpdate
-      ? updateProduct()
+      ? updateProduct({
+          productId: data.productId,
+          name,
+          description,
+          image,
+          price: Number(price),
+          discount: Number(discount),
+          isAvailable,
+          brandId: selectedBrandId,
+          categoryId: selectedCategoryId,
+        }).then(() => handleClose())
       : addProduct({
           name,
           description,
@@ -43,7 +52,7 @@ const ProductModal = ({ data, isUpdate }: ProductModalProps) => {
           isAvailable,
           brandId: selectedBrandId,
           categoryId: selectedCategoryId,
-        });
+        }).then(() => handleClose());
   };
 
   return (
@@ -101,7 +110,7 @@ const ProductModal = ({ data, isUpdate }: ProductModalProps) => {
             <option value="">Select brand id</option>
             {brands.map((brand: IBrand, index: number) => (
               <option key={index} value={brand.brandId}>
-                {Object.values(brand.brandName)}
+                {brand.brandName}
               </option>
             ))}
           </Form.Select>
@@ -111,8 +120,8 @@ const ProductModal = ({ data, isUpdate }: ProductModalProps) => {
           >
             <option value="">Select category id</option>
             {categories.map((category: ICategory, index: number) => (
-              <option key={index} value={Object.keys(category.categoryId)}>
-                {Object.values(category.categoryName)}
+              <option key={index} value={category.categoryId}>
+                {category.categoryName}
               </option>
             ))}
           </Form.Select>
